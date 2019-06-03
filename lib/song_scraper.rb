@@ -21,15 +21,18 @@ class SongScraper
 
     # Store html, get tea profile container
     doc = Nokogiri::HTML(open(index_url))
-    tea_profiles = doc.css("div.product-section .grid__item a.grid-link")
+    tea_types = doc.css("div.product-section")
 
-    # Iterate through profiles, create tea hashes
-    tea_profiles.collect do |tea|       
-      teas <<
+    # Iterate through tea types, create tea hashes
+    tea_types.each do |type|       
+      type.css(".grid__item a.grid-link").each do |tea|
+        teas <<
       {
         :name => tea.css("p.grid-link__title").text,
+        :type => type.attr("id").split("/").last.split("-").first,
         :shop_url => tea.attr("href")
       }
+      end
     end
     return teas
   end
