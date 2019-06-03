@@ -14,15 +14,20 @@ class TeaShopper::Tea
     @@all << self
   end
 
-  # Create tea instance from each hash of input array
+  # Create tea instance from each hash inside tea_array
   def self.create_from_collection(tea_array)
     tea_array.each do |tea|
       tea = Tea.new({
         :name => tea[:name],
-        :type => tea[:type],
-        :country => tea[:country]  
+        :shop_url => tea[:shop_url]  
       })
     end
+  end
+
+  # Add tea attributes from detail page hash
+  def add_tea_attributes(attributes_hash)
+    attributes_hash.each {|key, value| self.send(("#{key}="), value)}
+    self
   end
 
 end

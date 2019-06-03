@@ -132,20 +132,28 @@
     - Flavor
     - Price
 
+
 6. Run program and tweak
+
 
 7. Update Readme to include installation, about, etc., following pattern in https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
 
+
 8. Record demonstration w/ narration in Zoom
+
 
 9. Write blog post about process
 
-Stretch goals:
+
+## Stretch goals:
 
 10. Type 'exit' any time to leave program
 
+
 11. Modify project and submit rubygems.org
 
+
 12. Method to get from detail page back to specific list came from (Type, Country, Flavor)
+
 
 13. Write rspec tests
