@@ -22,7 +22,7 @@ class TeaShopper::CLI
     input = ""
     # while input != "exit"
     #Display instructions and initial filters 
-    puts "There are many teas to choose from. Select an exploration method below or type 'exit'."
+    puts "To narrow down your tea choices, choose an exploration method below. Or type 'exit' to leave."
     puts "- Type".colorize(:light_blue)
     puts "- Country of Origin".colorize(:light_blue)
     puts "- Flavor".colorize(:light_blue)
