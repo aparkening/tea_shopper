@@ -9,10 +9,21 @@ class TeaShopper::Tea
     @@all
   end
 
-  def initialize
-
+  def initialize(attributes)
+    attributes.each {|key, value| self.send(("#{key}="), value)}
+    @@all << self
   end
 
+  # Create tea instance from each hash of input array
+  def self.create_from_collection(tea_array)
+    tea_array.each do |tea|
+      tea = Tea.new({
+        :name => tea[:name],
+        :type => tea[:type],
+        :country => tea[:country]  
+      })
+    end
+  end
 
 end
 
