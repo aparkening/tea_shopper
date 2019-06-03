@@ -15,7 +15,7 @@ class SongScraper
   index_url = base_url + "/pages/tea-by-type"
   test_profile_url = base_url + "/collections/oolong-tea/products/dragon-phoenix-tender-heart"
 
-  # Return array of tea attribute hashes 
+  # Return array of tea attributes: name, type, and url
   def self.scrape_index(index_url)
     teas = []
 
@@ -23,13 +23,23 @@ class SongScraper
     doc = Nokogiri::HTML(open(index_url))
     tea_types = doc.css("div.product-section")
 
+    # Get shop name
+    shop_name = ""
+    doc.css('meta').each { |meta| 
+      shop_name = meta.attr("content") if meta.attr("property") == "og:site_name" }
+
     # Iterate through tea types, create tea hashes
     tea_types.each do |type|       
       type.css(".grid__item a.grid-link").each do |tea|
+        # Replace "red" type with "black/red"
+        tea_type = type.attr("id").split("/").last.split("-").first 
+        tea_type = "black/red" if tea_type == "red"
+          
         teas <<
       {
         :name => tea.css("p.grid-link__title").text,
-        :type => type.attr("id").split("/").last.split("-").first,
+        :type => tea_type,
+        :shop_name => shop_name,
         :shop_url => tea.attr("href")
       }
       end
@@ -37,7 +47,7 @@ class SongScraper
     return teas
   end
 
-  puts self.scrape_index(index_url)
+  # puts self.scrape_index(index_url)
 
   # Return hash describing individual tea
   def self.scrape_profile_page(profile_url)
@@ -45,29 +55,21 @@ class SongScraper
 
     # Store html document
     doc = Nokogiri::HTML(open(profile_url))
-    container = doc.css("div#ProductSection")
+    container = doc.css("div#ProductSection div.product-single")
   
-    # binding.pry
 
-    # - Title (w/ tea type)
-    # profile[:flavors] = container.css(".vitals-text-container .profile-quote").text   
-
+    # Already have title, type, shop name, and shop url
+    # Need:
+    # Price
+      # ("div.product-single__price span.product-single__price")
+    # Price per oz (convert from grams)
+    # In stock
+    # profile[:flavors]
     # Year (if available)
-    # container.css("product-description p.tea-summary")
-    # regex for tea type before 
-
-		# - Tea shop (w/ url)
-		# - Price per oz (w/ in stock)
-    # - Flavors ()
-# container.css("div.section-header .breadcrumb a:nth-of-type(2a)")
-
-
-    #   # Add flavor to hash if repeated tea name
-		# - Steep instructions
-		# - Number of infusions (if exist)
-		# - Full description
-		# - Ingredients (if exist)
-
+   	# Steep instructions
+		# Number of infusions (if exist)
+		# Full description
+		# Ingredients (if exist)
 
     # Store main vitals
     # vitals_container = doc.css("div.profile .vitals-container").first
