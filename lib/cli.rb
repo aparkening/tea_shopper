@@ -1,14 +1,24 @@
 require 'colorize'
-require_relative 'tea_shopper/'
+require_relative 'environment/'
 class TeaShopper::CLI
 
-  def call
+## This class presents data to user and gets input from user
+
+  def initialize
+    # Scrapers
+    # @tea_factory Tea factory
+
+  end
+
+
+  # Main run method
+  def run
     puts "Welcome to Tea Shopper!"
-    list_main_filters
+    list_main_menu
   end
 
   # Display initial tea filters and get input
-  def list_main_filters
+  def list_main_menu
     input = ""
     # while input != "exit"
     #Display instructions and initial filters 
