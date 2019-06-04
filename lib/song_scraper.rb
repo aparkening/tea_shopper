@@ -3,15 +3,11 @@ require 'open-uri'
 require 'pry'
 class SongScraper
 
-################################################################################  
+###################################################################  
 # 1. Scrape teas from Song Teas by Type page: https://songtea.com/pages/tea-by-type
  # no longer need https://songtea.com/pages/tea-by-character
-# 2. Scrape all individual tea pages, such as https://songtea.com/collections/oolong-tea/products/dragon-phoenix-tender-heart
-# 
 
-# ---------------------
-# Return method values
-
+# Example return values:
 # self.scrape_index(index_url)
 # Array of hashes:
 # {
@@ -22,8 +18,11 @@ class SongScraper
 #   :stock=>""
 # }
 
+
+# 2. Scrape all individual tea pages, such as https://songtea.com/collections/oolong-tea/products/dragon-phoenix-tender-heart
+
+# Example return values:
 # self.scrape_profile_page(profile_url)
-# Hash of tea details:
 # {
 #   :size=>30.0, 
 #   :price=>19.0, 
@@ -35,9 +34,8 @@ class SongScraper
 #   :instructions=>"Brew: 6 grams・150 ml・203° F・2 min", 
 #   :description=>"2019 marks our first year offering this oolong from Taiwan’s Dragon Phoenix Gorge. The cooler temperatures and mist-shrouded gardens of this region product tea with clarity, aromatics, and texture.\nDragon Phoenix Tender Heart is produced by a small farm operated by the Zhang family..."
 # }
-# ---------------------
 
-################################################################################
+################################################################### 
 
   # Define URLs
   base_url = "https://songtea.com"
