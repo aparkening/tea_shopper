@@ -89,7 +89,7 @@
 3. Create github repository
 
 
-4. Start with fun file and interface file
+4. Start with run file and interface file
   Run: 
     bin/tea_shopper
       - view permissions of file
@@ -118,11 +118,13 @@
     - Region
     - Flavors
     - Price
-  - Display Tea objects in menus
+  - Display Tea objects in Type menus
   - Display selected Tea object
     - Screencast
 	    - Find screencast tool
 	    - Record screencast
+  - Display Tea objects in Region menus
+  - Display Tea objects in Flavors menus
   - Scrape remaining sites:
     - Dobra
     - Smith
@@ -132,10 +134,10 @@
     - TeaSource?
     - Tea Spot?
   - Refactor Tea instantiaton for multiple scrapers
-  
+
 
 6. Run program and tweak
-  - Refactor to remove duplicated work
+  - Refactor to remove duplicated work and separate concerns
   - Improve error handling and responding to edge cases
   - Clean up tea_shopper.gemspec for production
   - Refactor for gem best practices (module names, file locations, etc.)

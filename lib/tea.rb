@@ -27,7 +27,7 @@ class Tea
       tea = Tea.new({
         :name => tea[:name],
         :type => tea[:type],
-        :shop_name => [:shop_name],
+        :shop_name => tea[:shop_name],
         :url => tea[:url],
         :stock => tea[:stock]  
       })

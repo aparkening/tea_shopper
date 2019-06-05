@@ -55,7 +55,6 @@ class SongScraper
     doc.css('meta').each { |meta| 
       shop_name = meta.attr("content") if meta.attr("property") == "og:site_name" }
 
-
     # Iterate through tea types, then iterate through teas to create tea hash
     tea_types.each do |type|       
       type.css(".grid__item a.grid-link").each do |tea|
@@ -136,7 +135,7 @@ class SongScraper
     # profile[:instructions] = [instructions, detailed_instructions].reject(&:empty?).join('. ')
     
     # Full description
-    profile[:description] = desc_array.join("\n")
+    profile[:description] = desc_array.join("\n\n")
 
     return profile
   end

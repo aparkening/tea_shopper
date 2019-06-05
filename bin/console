@@ -16,5 +16,15 @@ def reload!
   load 'bin/console'
 end
 
-puts "...loading your CLI Environment"
+# Testing shortcuts
+def new_test
+  TeaShopper::CLI.new.make_teas
+  TeaShopper::CLI.new.add_tea_attributes
+end
+def new_tea
+  TeaShopper::CLI.new.display_tea("Buddha's Hand")  
+end
+
+
+puts "\nWelcome to your new CLI Environment"
 IRB.start(__FILE__)

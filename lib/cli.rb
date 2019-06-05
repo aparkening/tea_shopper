@@ -11,18 +11,13 @@ class TeaShopper::CLI
   # test_profile_url = base_url + "/collections/oolong-tea/products/dragon-phoenix-tender-heart"
 
 
-  # Main controller
+  # Controller
   def run
     self.welcome
     self.make_teas
     self.add_tea_attributes
     self.main_menu
   end
-
-  def welcome
-    puts "Welcome to Tea Shopper!"
-  end
-
 
   # Create tea instances
   def make_teas
@@ -43,41 +38,39 @@ class TeaShopper::CLI
 
   # Display top menu and get input
   def main_menu
-    input = ""
-    # while input != "exit"
-    #Display instructions and initial filters 
-    puts "To narrow down your tea choices, choose an exploration method below. Or type 'exit' to leave."
+    
+    # Display instructions and initial filters 
+    puts "\nChoose a method below to explore today's teas. (Or type 'exit' to leave.)"
     puts "- Type".colorize(:light_blue)
     puts "- Region".colorize(:light_blue)
-    puts "- Flavor".colorize(:light_blue)
+    puts "- Flavor\n".colorize(:light_blue)
 
     # Get input, match to next step
+    input = ""
     input = gets.strip.downcase
     case input
     when "type"
-      # puts "Teas by type"
       type_menu
+
+    ### Replace with dynamic code
     when "region"
       puts "Teas by region"
     when "flavor"
       puts "Teas by flavor"
+    ####
+
     when "exit"
       goodbye
     else 
-      puts "Your input wasn't recognized, so we'll list tea by type."
+      puts "Your input wasn't recognized, so we'll list tea by Type."
     end
-  end
-
-  # Send user off with a message
-  def goodbye
-    puts "Thanks for stopping by. Happy tea drinking!"
   end
 
   # Display menu for tea type
   def type_menu
     # Display instructions and potential selections
-    spacer
-    puts "Tea Types\n".colorize(:green)
+    section_title("Tea Types")
+    # puts "Tea Types\n".colorize(:green)
     puts "Select from the tea types below to explore available teas."
 		# puts "- Green".colorize(:light_blue)
 		# puts "- White".colorize(:light_blue)
@@ -89,6 +82,7 @@ class TeaShopper::CLI
     # puts "- Herbal".colorize(:light_blue)
     
     Tea.types.each { |type| puts "- #{type.capitalize}".colorize(:light_blue)}
+    puts "\n"
 
     # Get input, match to next step
     input = gets.strip.downcase
@@ -123,7 +117,9 @@ class TeaShopper::CLI
 
   end
 
+  # Display submenu with numbered list of teas
   def sub_menu(subcategory, attribute)
+   
     # Assign teas to display
     case attribute
       when "flavor"
@@ -135,36 +131,40 @@ class TeaShopper::CLI
     end
     
     # Display title and instructions
-    self.spacer
-    puts "#{subcategory.capitalize}".colorize(:green)
+    title = subcategory.capitalize + " Tea"
+    section_title(title)    
     self.list_instructions
 
     # Display ordered list of teas
     self.num_list(teas)
+    puts "\n"
     
     # Get input, match to next step
-    input = gets.strip.downcase
+    input = gets.strip
+
+    # Display tea profile
+    self.display_tea(input)
 
     #### Match input if name or typed number
 
     # until input == "exit" 
-      case input
-      when "one"
-        # puts "One"
-        tea_detail(input)
-      when "two"
-        # puts "Two"
-        tea_detail(input)
-      when "three"
-        # puts "Three"
-        tea_detail(input)
-      when "exit"
-        goodbye
-      else 
-        ### Replace with better loop
-        puts "Your input wasn't recognized. Please select a valid tea."
-        type_submenu(tea_type)
-      end
+      # case input
+      # when "one"
+      #   # puts "One"
+      #   tea_detail(input)
+      # when "two"
+      #   # puts "Two"
+      #   tea_detail(input)
+      # when "three"
+      #   # puts "Three"
+      #   tea_detail(input)
+      # when "exit"
+      #   goodbye
+      # else 
+      #   ### Replace with better loop
+      #   puts "Your input wasn't recognized. Please select a valid tea."
+      #   type_submenu(tea_type)
+      # end
     # end        
     # goodbye
 
@@ -182,20 +182,16 @@ class TeaShopper::CLI
 
     Tea.regions.each { |type| puts "- #{type.capitalize}".colorize(:light_blue)}
 
-    # Display teas as ordered list
-    # .each.with_index(1) { |tea, index| puts "#{index}. #{tea.name}".colorize }
-
-
     # Get input, match to next step
     input = gets.strip.downcase
     case input
     when "green"
-      tea_detail("green")
+      sub_menu("green", "region")
     when "white"
-      tea_detail("white")
+      sub_menu("white", "region")
     when "yellow"
       # puts "Yellow"
-      tea_detail("yellow")
+      sub_menu("green", "region")
     when "oolong"
       puts "Oolong"
     when "black"
@@ -220,38 +216,59 @@ class TeaShopper::CLI
     Tea.flavors.each { |type| puts "- #{type.capitalize}".colorize(:light_blue)}
   end
 
-  # No longer needed
-  # Display tea list ordered by ascending price
-  # def price_results
-  #   puts "teas by price: low to high"
-  # end
-
   # Take in name of tea, find tea object, display all details
   def display_tea(name)
     # Find tea object
     tea = Tea.find_by_name(name)
 
-    self.spacer
-    puts "Tea #{tea_name.capitalize}".colorize(:green)
-    puts "
-    - @stock if not empty
-    - @name (w/ @type)
-    - @shop_name 
-    - @url
-    - @price w/ $ (@size)
-    - ? @Price per oz
-    - @region & @date
-    - @flavors
-		- @instructions
-		- @detailed_instructions
-		- @description
-    "
+    # Name
+    title = "#{tea.name} (#{tea.type} tea)"
+    self.section_title(title)
 
+    # Out of stock warning
+    puts "\nOh no, it's #{tea.stock}!\n".colorize(:red) if tea.stock != ""
+
+    # Tea type, shop name, shop url
+    puts "- Shop: #{tea.shop_name} (#{@@song_base_url + tea.url})".colorize(:light_blue)
+    puts "- Region: #{tea.region}".colorize(:light_blue)
+    puts "- Harvest: #{tea.date}".colorize(:light_blue)
+  
+    # Add 0 to price; round price per oz
+    puts "- Price: $#{tea.price} for #{tea.size} grams (#{tea.price_per_oz.round(2)} per oz.)".colorize(:light_blue)
+
+    # Flavors
+    puts "- Flavors: #{tea.flavors}\n".colorize(:light_blue)
+
+    # Instructions and description
+    puts tea.description 
+    puts "\n" + tea.instructions
+    puts tea.detailed_instructions
+
+    # Start again or leave
+    puts "\n\nReturn to the main menu? (y/n)".colorize(:light_blue)
+    input = gets.strip.downcase
+    if input == "y"
+      self.main_menu
+    else 
+      self.goodbye
+    end
   end
 
 
   ##### Display Helpers #####
   
+  # Welcome message
+  def welcome
+    section_title("Welcome to Tea Shopper!")
+    puts "We're pulling the latest tea data from the web. This may take a few moments...\n"
+  end
+
+  # Goodbye message
+  def goodbye
+    puts "\nThanks for stopping by. Happy tea drinking!"
+  end
+
+  # Submenu instructions
   def list_instructions
     puts "The list below is sorted by price, lowest to highest. Type a tea name or number to learn more about its flavors, steeping instructions, description, and where to buy it."
   end
@@ -261,6 +278,14 @@ class TeaShopper::CLI
     puts "\n----------\n\n"
   end
 
+  # Title for section, including spacer
+  def section_title(title)
+    self.spacer 
+    puts title.colorize(:green) + "\n\n"
+  end
+
+
+  # Display numbered list of tea names
   def num_list(array)
     array.each.with_index(1) { |obj, index| puts "#{index}. #{obj.name}".colorize(:light_blue) }
   end
