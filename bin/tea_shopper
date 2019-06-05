@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require './config/environment'
+require './lib/tea_shopper'
 
 TeaShopper::CLI.new.run

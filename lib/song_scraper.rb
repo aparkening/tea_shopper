@@ -1,6 +1,5 @@
 require 'nokogiri'
 require 'open-uri'
-require 'pry'
 class SongScraper
 
 ###################################################################  
@@ -14,7 +13,7 @@ class SongScraper
 #   :name=>"Aged Baozhong, 1960s", 
 #   :type=>"aged", 
 #   :shop_name=>"Song Tea & Ceramics", 
-#   :shop_url=>"/collections/aged-tea/products/aged-baozhong-1960s", 
+#   :url=>"/collections/aged-tea/products/aged-baozhong-1960s", 
 #   :stock=>""
 # }
 
@@ -37,10 +36,10 @@ class SongScraper
 
 ################################################################### 
 
-  # Define URLs
-  base_url = "https://songtea.com"
-  index_url = base_url + "/pages/tea-by-type"
-  test_profile_url = base_url + "/collections/oolong-tea/products/dragon-phoenix-tender-heart"
+  # base_url = "https://songtea.com"
+  # index_url = base_url + "/pages/tea-by-type"
+  # test_profile_url = base_url + "/collections/oolong-tea/products/dragon-phoenix-tender-heart"
+
 
   # Scrape tea overview page. Return array of tea attributes.
   def self.scrape_index(index_url)
@@ -73,7 +72,7 @@ class SongScraper
         :name => tea.css("p.grid-link__title").text,
         :type => tea_type,
         :shop_name => shop_name,
-        :shop_url => tea.attr("href"),
+        :url => tea.attr("href"),
         :stock => stock
       }
       end
@@ -83,7 +82,7 @@ class SongScraper
     return teas
   end
   # Test
-  # puts self.scrape_index(index_url)
+  # puts self.scrape_index(index_url).inspect
 
   # Scrape individual tea profile page. Return hash of individual tea attributes.
   def self.scrape_profile_page(profile_url)
@@ -93,11 +92,7 @@ class SongScraper
     doc = Nokogiri::HTML(open(profile_url))
     container = doc.css("div#ProductSection div.product-single")
   
-    # binding.pry
-    
-    # Get attributes: price, weight, flavors, region, date, description
-
-    # Old method.
+    # Old method:
     # Price; strip space and remove $
     # price = container.css("div.product-single__prices span#ProductPrice").text.strip.delete("$")
     
@@ -109,7 +104,7 @@ class SongScraper
     profile[:size] = size
 
     # Get price, grab digits and decimal, convert to float
-    price = size_price.last[/\d+./].strip.to_f
+    price = size_price.last[/\d+./].to_f
     profile[:price] = price
 
     # Convert initial price to per oz price
@@ -146,5 +141,5 @@ class SongScraper
     return profile
   end
   # Test
-  # puts self.scrape_profile_page(test_profile_url)
+  # puts self.scrape_profile_page(test_profile_url).inspect
 end

@@ -150,10 +150,13 @@
 10. Type 'exit' any time to leave program
 
 
-11. Modify project and submit rubygems.org
+11. Allow user to type first word of tea
 
 
-12. Method to get from detail page back to specific list came from (Type, Country, Flavor)
+12. Modify project and submit rubygems.org
 
 
-13. Write rspec tests
+13. Method to get from detail page back to specific list came from (Type, Country, Flavor)
+
+
+14. Write rspec tests

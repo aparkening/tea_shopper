@@ -1,36 +1,86 @@
-class TeaShopper::Tea 
+require 'pry'
+class Tea 
 
-  attr_accessor :name, :type, :region, :flavors, :shop_name, :shop_url, :price, :in_stock, :instructions, :infusions, :description, :ingredients, :date
-
+  attr_accessor :name, :type, :shop_name, :url, :stock, :size, :price, :price_per_oz, :flavors, :region, :date, :detailed_instructions, :instructions, :description
+  
   @@all = []
 
-  # List of all teas
+  # @@all Teas reader
   def self.all
     @@all
   end
 
+  # Reset the @@all array
+  def self.reset_all
+    self.all.clear
+  end
+
+  # Initialize multiple attributes with send
   def initialize(attributes)
     attributes.each {|key, value| self.send(("#{key}="), value)}
     @@all << self
   end
 
-  # Create tea instance from each hash inside tea_array
+  # Create tea instances from hashes inside tea_array
   def self.create_from_collection(tea_array)
     tea_array.each do |tea|
       tea = Tea.new({
         :name => tea[:name],
-        :shop_url => tea[:shop_url]  
+        :type => tea[:type],
+        :shop_name => [:shop_name],
+        :url => tea[:url],
+        :stock => tea[:stock]  
       })
     end
   end
 
-  # Add tea attributes from detail page hash
+  # Add profile page hash attributes
   def add_tea_attributes(attributes_hash)
     attributes_hash.each {|key, value| self.send(("#{key}="), value)}
     self
   end
 
+  # Find tea object by name
+  def self.find_by_name(name)
+    self.all.find{|obj| obj.name == name}
+  end
+
+  # Return array of tea types
+  def self.types
+    self.all.collect { |tea| tea.type }.uniq.sort
+  end
+
+  # Return array of teas for input type
+  def self.teas_by_type(type)
+    teas = self.all.collect { |obj| obj if obj.type == type }.compact
+    teas.sort_by { |tea| tea.price_per_oz}
+  end
+
+  # Return array of tea regions
+  def self.regions
+    self.all.collect { |tea| tea.region }.uniq.sort
+  end
+
+  # Return array of teas for input region
+  def self.teas_by_region(region)
+    teas = self.all.collect{ |obj| obj if obj.region == region}.compact
+    teas.sort_by { |tea| tea.price_per_oz}
+  end
+
+  # Return array of tea flavors
+  def self.flavors
+    self.all.collect { |tea| tea.flavors }.uniq.sort
+  end
+
+  # Return array of teas for input flavors
+  def self.teas_by_flavor(flavor)
+    teas = self.all.collect{ |obj| obj if obj.flavors == flavors}.compact
+    teas.sort_by { |tea| tea.price_per_oz}
+  end
+
+  # Return array sorted by price_per_oz
+  # def price_sort(array)
+  #   array.sort_by { |tea| tea.price_per_oz}
+  # end
+
 end
-
-
-
