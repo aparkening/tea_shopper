@@ -11,10 +11,10 @@ require "irb"
 # require "pry"
 # Pry.start
 
+# Shorcut console exit and restart
 def reload!
   load 'bin/console'
 end
 
 puts "...loading your CLI Environment"
-
 IRB.start(__FILE__)

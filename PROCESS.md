@@ -113,50 +113,60 @@
   - Create submenus
 	- Create Tea class
 	- Scrape first site: Song
+  - Create tea display filters for:
+    - Type
+    - Region
+    - Flavors
+    - Price
+  - Display Tea objects in menus
+  - Display selected Tea object
     - Screencast
 	    - Find screencast tool
 	    - Record screencast
-
   - Scrape remaining sites:
-    - Harney
-    - Smith
     - Dobra
+    - Smith
     - Virtuous
+    - Harney?
     - Happy Lucky's?
     - TeaSource?
     - Tea Spot?
-
-  - Create filters for:
-    - Type
-    - Country
-    - Flavor
-    - Price
-
+  - Refactor Tea instantiaton for multiple scrapers
+  
 
 6. Run program and tweak
+  - Refactor to remove duplicated work
+  - Improve error handling and responding to edge cases
+  - Clean up tea_shopper.gemspec for production
+  - Refactor for gem best practices (module names, file locations, etc.)
 
 
 7. Update Readme to include installation, about, etc., following pattern in https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+  - Update Code_of_Conduct.md
+  - 
 
 
-8. Record demonstration w/ narration in Zoom
+8. Run Bundler release (https://bundler.io/v2.0/guides/creating_gem.html) to move into production mode and push to github.
 
 
-9. Write blog post about process
+9. Record demonstration w/ narration in Zoom
+
+
+10. Write blog post about process
 
 
 ## Stretch goals:
 
-10. Type 'exit' any time to leave program
+1. Type 'exit' any time to leave program
 
 
-11. Allow user to type first word of tea
+2. Allow user to type first word of tea
 
 
-12. Modify project and submit rubygems.org
+3. Modify project and submit rubygems.org
 
 
-13. Method to get from detail page back to specific list came from (Type, Country, Flavor)
+4. Method to get from detail page back to specific list came from (Type, Country, Flavor)
 
 
-14. Write rspec tests
+5. Write rspec tests
