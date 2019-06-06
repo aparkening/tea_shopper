@@ -126,7 +126,39 @@
   - Refactor to split primary and secondary scrapes
   [Removed] Display Tea objects in Region menus
   [Removed] Display Tea objects in Flavors menus
-  - Scrape remaining sites:
+
+
+6. Run program and tweak
+  - Refactor to remove duplicated work and separate concerns
+  - Improve error handling and responding to edge cases
+  - Clean up tea_shopper.gemspec for production
+  - Refactor for gem best practices (module names, file locations, etc.)
+
+
+7. Update Readme to include installation, about, etc., following pattern in https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+  - Update Code_of_Conduct.md
+
+
+8. Run Bundler release (https://bundler.io/v2.0/guides/creating_gem.html) to move into production mode and push to github.
+
+
+9. Record demonstration w/ narration in Zoom
+
+
+10. Write blog post about process
+
+
+11. Submit checklist
+
+
+12. Upload gem after 1:1 code review
+
+
+## Stretch goals:
+
+1. Type 'exit' any time to leave program
+
+2. Scrape more sites:
     - Dobra
       1. 8 index pages: https://www.dobratea.com/
       div#second-menu ul#menu-second-nav-header li (don't get accessories)
@@ -145,38 +177,10 @@
 
   - Refactor Tea instantiaton for multiple scrapers
 
-
-6. Run program and tweak
-  - Refactor to remove duplicated work and separate concerns
-  - Improve error handling and responding to edge cases
-  - Clean up tea_shopper.gemspec for production
-  - Refactor for gem best practices (module names, file locations, etc.)
-
-
-7. Update Readme to include installation, about, etc., following pattern in https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
-  - Update Code_of_Conduct.md
-  - 
-
-
-8. Run Bundler release (https://bundler.io/v2.0/guides/creating_gem.html) to move into production mode and push to github.
-
-
-9. Record demonstration w/ narration in Zoom
-
-
-10. Write blog post about process
-
-
-## Stretch goals:
-
-1. Type 'exit' any time to leave program
-
-2. Pagination of long lists
+3. Pagination of long lists
 
 3. Allow user to type first word of tea
 
-4. Modify project and submit rubygems.org
+4. Method to get from detail page back to specific list came from (Type, Country, Flavor)
 
-5. Method to get from detail page back to specific list came from (Type, Country, Flavor)
-
-6. Write rspec tests
+5. Write rspec tests
