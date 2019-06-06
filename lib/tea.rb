@@ -41,7 +41,7 @@ class Tea
   end
 
   # Find tea object by name
-  def self.find_by_name(name)
+  def self.find_by_name(name, array)
     self.all.find{|obj| obj.name == name}
   end
 
@@ -70,7 +70,7 @@ class Tea
   # Return array of teas for region
   def self.teas_by_region(region)
     # If default selection of china or taiwan, run twice: once for china, and once for taiwan. Then join together.
-    if region == "china or taiwan"
+    if region == "China or Taiwan"
       teas = self.all.collect{ |obj| obj if obj.region.include?("china")}.compact
       teas << self.all.collect{ |obj| obj if obj.region.include?("taiwan")}.compact
     else

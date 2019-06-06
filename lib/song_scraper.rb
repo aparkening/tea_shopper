@@ -57,6 +57,7 @@ class SongScraper
     # Iterate through tea types, then iterate through teas to create tea hash
     tea_types.each do |type|       
       type.css(".grid__item a.grid-link").each do |tea|
+        
         # Replace "red" type with "black/red"
         tea_type = type.attr("id").split("/").last.split("-").first 
         tea_type = "black/red" if tea_type == "red"
@@ -64,13 +65,12 @@ class SongScraper
         # If tea is out of stock, store in hash
         tea.css("span.badge").text.include?("Sold Out")?stock = "sold out" : stock = ""
 
-
         # Add tea hash to array
         teas <<
       {
         :name => tea.css("p.grid-link__title").text,
         :type => tea_type,
-        :region => "china or taiwan",
+        :region => "China or Taiwan",
         :shop_name => shop_name,
         :url => BASE_URL + tea.attr("href"),
         :stock => stock
