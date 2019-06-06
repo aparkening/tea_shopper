@@ -71,10 +71,10 @@ class Tea
   def self.teas_by_region(region)
     # If default selection of china or taiwan, run twice: once for china, and once for taiwan. Then join together.
     if region == "China or Taiwan"
-      teas = self.all.collect{ |obj| obj if obj.region.include?("china")}.compact
-      teas << self.all.collect{ |obj| obj if obj.region.include?("taiwan")}.compact
+      teas = self.all.collect{ |obj| obj if obj.region.downcase.include?("china")}.compact
+      teas << self.all.collect{ |obj| obj if obj.region.downcase.include?("taiwan")}.compact
     else
-      teas = self.all.collect{ |obj| obj if obj.region == region}.compact
+      teas = self.all.collect{ |obj| obj if obj.region.downcase == region}.compact
     end
       # teas.sort_by { |tea| tea.price_per_oz}
     teas.sort_by { |tea| tea.name}

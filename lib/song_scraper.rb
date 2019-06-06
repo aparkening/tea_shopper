@@ -125,7 +125,7 @@ class SongScraper
     region_year = desc_array.shift.split("・")
     profile[:date] = region_year[1]
     # Replace default "China or Taiwan" region with detailed region
-    profile[:region] = region_year.first[/(?<=from ).*/].downcase
+    profile[:region] = region_year.first[/(?<=from ).*/]
  
     # Steep instructions
     # Get detailed instructions first

@@ -124,8 +124,8 @@
 	    - Find screencast tool
 	    - Record screencast
   - Refactor to split primary and secondary scrapes
-  **** Display Tea objects in Region menus
-  - Display Tea objects in Flavors menus
+  [Removed] Display Tea objects in Region menus
+  [Removed] Display Tea objects in Flavors menus
   - Scrape remaining sites:
     - Dobra
       1. 8 index pages: https://www.dobratea.com/

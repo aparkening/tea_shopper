@@ -38,15 +38,19 @@ class TeaShopper::CLI
     # Main menu: get category from user
     # category = self.display_main_menu
     category = "type"
+    subcategory = nil
+    selected_tea = nil
 
     # Display category selections, get subcategory
     subcategory = self.display_category(category)
 
     # Show subcategory menu of teas
-    selected_tea = self.display_subcategory(subcategory, category)
+    selected_tea = self.display_subcategory(subcategory, category) if subcategory
 
     # Display tea profile
-    self.display_tea(selected_tea)
+    self.display_tea(selected_tea) if selected_tea
+
+    self.goodbye
   end
 
 
@@ -82,7 +86,7 @@ class TeaShopper::CLI
     # Display instructions and potential selections
     # title = "Tea " + category.capitalize
     # self.section_title(title)
-    puts "Choose a category below find your next great tea:"
+    puts "Choose a category below find your next great tea:\n(Or type 'X' to exit)"
     puts "\n"
 
     # Display list of tea categories
@@ -104,7 +108,7 @@ class TeaShopper::CLI
     # Ensure valid input
     if self.exit?(input) 
       # return self.goodbye
-      input = "exit"
+      input = nil
     elsif input.include?("black")
       input = "black/red"
     elsif Tea.types.none?{|obj| obj == input}
@@ -137,8 +141,8 @@ class TeaShopper::CLI
     self.list_instructions
 
     # Repeat list and selection process until valid input received
-    input = nil
-    until self.valid_tea?(input, teas)
+    input = ""
+    until self.valid_tea?(input, teas) || input == nil
 
       # Display ordered list of teas
       self.num_list(teas)
@@ -155,11 +159,12 @@ class TeaShopper::CLI
         return teas.find{|obj| obj.name.downcase == input}
       # If exit, send goodbye
       elsif self.exit?(input) 
-        return self.goodbye
+        # return self.goodbye
+        return nil
       else
-        puts "\nWe don't recognize that tea, so we'll show the list again.\n"
+        self.spacer
+        puts "We don't recognize that tea, so we'll show the list again.\n\n"
         self.list_instructions
-        # return self.display_subcategory(subcategory, category)
       end
     end
   end
@@ -194,48 +199,46 @@ class TeaShopper::CLI
     puts "\n"
     
     # Out of stock warning
-    puts "\nOh no! It's #{tea.stock}!\n".colorize(:red) if tea.stock != ""
+    puts "Oh no! It's #{tea.stock}!\n".colorize(:red) if tea.stock != ""
 
     # Shop name and price
     puts "Shop:" + "     #{tea.shop_name}".colorize(:light_blue)
     puts "Price:" + "    $#{tea.price} for #{tea.size} grams (#{tea.price_per_oz} per oz.)".colorize(:light_blue)
 
     # Region, harvest, flavors
-    puts "Region:" + "   #{tea.region.capitalize}".colorize(:light_blue)
+    puts "Region:" + "   #{tea.region}".colorize(:light_blue)
     puts "Harvest:" + "  #{tea.date}".colorize(:light_blue)
     puts "Flavors:" + "  #{tea.flavors}\n".colorize(:light_blue)
 
     # Show next steps
-    puts "What now? Choose:"
+    puts "Want more? Choose:"
     puts "- D to view this tea's (potentially long) description".colorize(:light_blue)
     puts "- M to start again at the main menu".colorize(:light_blue)
     puts "- X to exit".colorize(:light_blue)
     puts "\n"
 
     input = gets.strip.downcase
-    case input
-      when "d"
-        desc_title = tea.name + " Description:".colorize(:green)
-        self.section_title(desc_title)
-        puts tea.description 
-        puts "\n" + tea.instructions.colorize(:light_blue)
-        puts tea.detailed_instructions
-        puts "\n"
-        puts "\nAnd now? Choose:"
-        puts "- M to start again at the main menu".colorize(:light_blue)
-        puts "- X to exit".colorize(:light_blue)
-        puts "\n"
+    # case input
+    if input == "d"
+      desc_title = tea.name + " Description:".colorize(:green)
+      self.section_title(desc_title)
+      puts tea.description 
+      puts "\n" + tea.instructions
+      puts tea.detailed_instructions
+      puts "\n"
+      puts "\nAnd now? Choose:"
+      puts "- M to start again at the main menu".colorize(:light_blue)
+      puts "- X to exit".colorize(:light_blue)
+      puts "\n"
 
-        next_input = gets.strip.downcase
-        if next_input == "m"
-          self.guide_user
-        else
-          self.goodbye
-        end
-      when "m"
+      next_input = gets.strip.downcase
+      self.guide_user if next_input == "m"
+        # else
+        #   self.goodbye
+    elsif input == "m"
         self.guide_user
-      else
-        self.goodbye
+    # else
+    #   self.goodbye
     end
   end
 
@@ -260,7 +263,7 @@ class TeaShopper::CLI
   # Submenu instructions
   def list_instructions
     # puts "Choose a tea number from the list below to get more details and buying info."
-    puts "Choose a number or tea name from the list below to get more details and buying info."
+    puts "Choose a number or tea name from the list below get the details.\n(Or type 'X' to exit)"
     puts "\n"
   end
   
