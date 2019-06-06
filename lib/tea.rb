@@ -26,6 +26,7 @@ class Tea
       tea = Tea.new({
         :name => tea[:name],
         :type => tea[:type],
+        :region => tea[:region],
         :shop_name => tea[:shop_name],
         :url => tea[:url],
         :stock => tea[:stock]  
@@ -49,23 +50,9 @@ class Tea
     self.all.collect { |tea| tea.type }.uniq.sort
   end
 
-  # Return array of teas for input type
-  def self.teas_by_type(type)
-    teas = self.all.collect { |obj| obj if obj.type == type }.compact
-    # teas.sort_by { |tea| tea.price_per_oz}
-    teas.sort_by { |tea| tea.name}
-  end
-
   # Return array of tea regions
   def self.regions
     self.all.collect { |tea| tea.region }.uniq.sort
-  end
-
-  # Return array of teas for input region
-  def self.teas_by_region(region)
-    teas = self.all.collect{ |obj| obj if obj.region == region}.compact
-    # teas.sort_by { |tea| tea.price_per_oz}
-    teas.sort_by { |tea| tea.name}
   end
 
   # Return array of tea shops
@@ -73,7 +60,27 @@ class Tea
     self.all.collect { |tea| tea.shop_name }.uniq.sort
   end
 
-  # Return array of teas for input shops
+  # Return array of teas for type
+  def self.teas_by_type(type)
+    teas = self.all.collect { |obj| obj if obj.type == type }.compact
+    # teas.sort_by { |tea| tea.price_per_oz}
+    teas.sort_by { |tea| tea.name}
+  end
+
+  # Return array of teas for region
+  def self.teas_by_region(region)
+    # If default selection of china or taiwan, run twice: once for china, and once for taiwan. Then join together.
+    if region == "china or taiwan"
+      teas = self.all.collect{ |obj| obj if obj.region.include?("china")}.compact
+      teas << self.all.collect{ |obj| obj if obj.region.include?("taiwan")}.compact
+    else
+      teas = self.all.collect{ |obj| obj if obj.region == region}.compact
+    end
+      # teas.sort_by { |tea| tea.price_per_oz}
+    teas.sort_by { |tea| tea.name}
+  end
+
+  # Return array of teas for shops
   def self.teas_by_shop(shop)
     teas = self.all.collect{ |obj| obj if obj.shop_name == shop}.compact
     # teas.sort_by { |tea| tea.price_per_oz}

@@ -70,7 +70,7 @@ class SongScraper
       {
         :name => tea.css("p.grid-link__title").text,
         :type => tea_type,
-        :region => "China or Taiwan"
+        :region => "china or taiwan",
         :shop_name => shop_name,
         :url => BASE_URL + tea.attr("href"),
         :stock => stock
@@ -125,7 +125,7 @@ class SongScraper
     region_year = desc_array.shift.split("・")
     profile[:date] = region_year[1]
     # Replace default "China or Taiwan" region with detailed region
-    profile[:region] = region_year.first[/(?<=from ).*/]
+    profile[:region] = region_year.first[/(?<=from ).*/].downcase
  
     # Steep instructions
     # Get detailed instructions first

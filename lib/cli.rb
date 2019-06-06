@@ -64,7 +64,8 @@ class TeaShopper::CLI
     puts "Choose a method below to explore today's teas:\n(Or type 'X' to exit)"
     puts "\n"
     puts "- Type".colorize(:light_blue)
-    puts "- Region".colorize(:light_blue)
+    # Song too complicated to include initially
+    # puts "- Region".colorize(:light_blue)
     puts "- Shop\n".colorize(:light_blue)
     input = gets.strip.downcase
 
@@ -104,19 +105,21 @@ class TeaShopper::CLI
     title = "Tea " + category.capitalize
     self.section_title(title)
     # puts "Tea Types\n".colorize(:green)
-    puts "Choose a type below to explore available teas:"
+    puts "Choose a subcategory below to explore available teas:"
     puts "\n"
-		# puts "- Green".colorize(:light_blue)
-		# puts "- White".colorize(:light_blue)
-		# puts "- Yellow".colorize(:light_blue)
-		# puts "- Oolong".colorize(:light_blue)
-		# puts "- Black".colorize(:light_blue)
-		# puts "- Pu-er".colorize(:light_blue)
-		# puts "- Rooibos".colorize(:light_blue)
-    # puts "- Herbal".colorize(:light_blue)
-    
-    Tea.types.each { |type| puts "- #{type.capitalize}".colorize(:light_blue)}
-    puts "\n"
+
+    # Display list of tea categories
+    case category
+      when "shop"
+        Tea.shops.each { |obj| puts "- #{obj.capitalize}".colorize(:light_blue)}
+        puts "\n"
+      when "region"
+        Tea.regions.each { |obj| puts "- #{obj.capitalize}".colorize(:light_blue)}
+        puts "\n"
+      else
+        Tea.types.each { |obj| puts "- #{obj.capitalize}".colorize(:light_blue)}
+        puts "\n"
+    end
 
     # Get input, match to next step
     input = gets.strip.downcase
@@ -158,10 +161,10 @@ class TeaShopper::CLI
     case category
       when "shop"
         teas = Tea.teas_by_shop(subcategory)
-      when "type"
-        teas = Tea.teas_by_type(subcategory)
       when "region"
         teas = Tea.teas_by_region(subcategory)
+      else
+        teas = Tea.teas_by_type(subcategory)
     end
     
     # Display title and instructions
