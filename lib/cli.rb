@@ -14,9 +14,9 @@ class TeaShopper::CLI
   # Controller
   def run
     self.welcome
+    self.main_menu
     self.make_teas
     self.add_tea_attributes
-    self.main_menu
   end
 
   # Create tea instances
@@ -38,12 +38,14 @@ class TeaShopper::CLI
 
   # Display top menu and get input
   def main_menu
-    
+    section_title("Main Menu")
+
     # Display instructions and initial filters 
-    puts "\nChoose a method below to explore today's teas. (Or type 'exit' to leave.)"
+    puts "Choose a method below to explore today's teas:\n(Or type 'X' to exit)"
+    puts "\n"
     puts "- Type".colorize(:light_blue)
     puts "- Region".colorize(:light_blue)
-    puts "- Flavor\n".colorize(:light_blue)
+    puts "- Shop\n".colorize(:light_blue)
 
     # Get input, match to next step
     input = ""
@@ -55,11 +57,11 @@ class TeaShopper::CLI
     ### Replace with dynamic code
     when "region"
       puts "Teas by region"
-    when "flavor"
-      puts "Teas by flavor"
+    when "shop"
+      puts "Teas by shop"
     ####
 
-    when "exit"
+    when "x","exit"
       goodbye
     else 
       puts "Your input wasn't recognized, so we'll list tea by Type."
@@ -71,7 +73,8 @@ class TeaShopper::CLI
     # Display instructions and potential selections
     section_title("Tea Types")
     # puts "Tea Types\n".colorize(:green)
-    puts "Select from the tea types below to explore available teas."
+    puts "Select a type below to explore available teas:"
+    puts "\n"
 		# puts "- Green".colorize(:light_blue)
 		# puts "- White".colorize(:light_blue)
 		# puts "- Yellow".colorize(:light_blue)
@@ -122,8 +125,8 @@ class TeaShopper::CLI
    
     # Assign teas to display
     case attribute
-      when "flavor"
-        teas = Tea.teas_by_flavor(subcategory)
+      when "shop"
+        teas = Tea.teas_by_shop(subcategory)
       when "type"
         teas = Tea.teas_by_type(subcategory)
       when "region"
@@ -209,11 +212,11 @@ class TeaShopper::CLI
     end
   end
 
-  # Display menu for flavor profiles
-  def flavors_menu
+  # Display types for tea shop
+  def shop_menu
     # Display instructions and potential selections
-    puts "Teas have many flavors. Select a flavor profile below to explore available teas."
-    Tea.flavors.each { |type| puts "- #{type.capitalize}".colorize(:light_blue)}
+    # puts "Teas have many flavors. Select a flavor profile below to explore available teas."
+    Tea.shop_name.each { |type| puts "- #{type.capitalize}".colorize(:light_blue)}
   end
 
   # Take in name of tea, find tea object, display all details
@@ -223,34 +226,65 @@ class TeaShopper::CLI
 
     # Name
     title = "#{tea.name} (#{tea.type} tea)"
-    self.section_title(title)
-
+    url = @@song_base_url + tea.url
+    # self.section_title(title)
+    self.spacer 
+    puts title.colorize(:green)
+    puts url.colorize(:light_blue)
+    puts "\n"
+    
     # Out of stock warning
-    puts "\nOh no, it's #{tea.stock}!\n".colorize(:red) if tea.stock != ""
+    puts "\nOh no! It's #{tea.stock}!\n".colorize(:red) if tea.stock != ""
 
-    # Tea type, shop name, shop url
-    puts "- Shop: #{tea.shop_name} (#{@@song_base_url + tea.url})".colorize(:light_blue)
-    puts "- Region: #{tea.region}".colorize(:light_blue)
-    puts "- Harvest: #{tea.date}".colorize(:light_blue)
-  
-    # Add 0 to price; round price per oz
-    puts "- Price: $#{tea.price} for #{tea.size} grams (#{tea.price_per_oz.round(2)} per oz.)".colorize(:light_blue)
+    # Shop name and price
+    puts "Shop:" + "     #{tea.shop_name}".colorize(:light_blue)
+    puts "Price:" + "    $#{tea.price} for #{tea.size} grams (#{tea.price_per_oz} per oz.)".colorize(:light_blue)
 
-    # Flavors
-    puts "- Flavors: #{tea.flavors}\n".colorize(:light_blue)
+    # Region, harvest, flavors
+    puts "Region:" + "   #{tea.region}".colorize(:light_blue)
+    puts "Harvest:" + "  #{tea.date}".colorize(:light_blue)
+    puts "Flavors:" + "  #{tea.flavors}\n".colorize(:light_blue)
 
-    # Instructions and description
-    puts tea.description 
-    puts "\n" + tea.instructions
-    puts tea.detailed_instructions
+    # Show next steps
+    # Press:
+    # - D for tea description
+    # - M for main menu
+    # - X to exit 
 
-    # Start again or leave
-    puts "\n\nReturn to the main menu? (y/n)".colorize(:light_blue)
+    puts "What now? Press:"
+    puts "- D to view this tea's (potentially long) description"
+    puts "- M to start again at the main menu"
+    puts "- X to exit"
+    puts "\n"
+    
     input = gets.strip.downcase
-    if input == "y"
-      self.main_menu
-    else 
-      self.goodbye
+    case input
+      when "d"
+        # Instructions and description
+        # self.section_title(title)
+        desc_title = tea.name + " Description:".colorize(:green)
+        section_title(desc_title)
+        puts tea.description 
+        puts "\n" + tea.instructions.colorize(:light_blue)
+        puts tea.detailed_instructions
+        puts "\n"
+
+        puts "\nAnd now? Press:"
+        puts "- M to start again at the main menu"
+        puts "- X to exit"
+        puts "\n"
+
+        next_input = gets.strip.downcase
+        case next_input
+          when "m"
+            self.main_menu
+          else
+            self.goodbye
+          end
+      when "m"
+        self.main_menu
+      else
+        self.goodbye
     end
   end
 
@@ -270,7 +304,8 @@ class TeaShopper::CLI
 
   # Submenu instructions
   def list_instructions
-    puts "The list below is sorted by price, lowest to highest. Type a tea name or number to learn more about its flavors, steeping instructions, description, and where to buy it."
+    puts "Choose a tea from the alphabetical list below to get more details and buying info."
+    puts "\n"
   end
   
   # Reusable display spacer
@@ -284,10 +319,9 @@ class TeaShopper::CLI
     puts title.colorize(:green) + "\n\n"
   end
 
-
   # Display numbered list of tea names
   def num_list(array)
-    array.each.with_index(1) { |obj, index| puts "#{index}. #{obj.name}".colorize(:light_blue) }
+    array.each.with_index(1) { |obj, index| puts "#{index}. #{obj.name} ($#{obj.price_per_oz} per oz., #{obj.shop_name})".colorize(:light_blue) }
   end
 
 end

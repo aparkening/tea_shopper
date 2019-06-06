@@ -123,16 +123,25 @@
     - Screencast
 	    - Find screencast tool
 	    - Record screencast
-  - Display Tea objects in Region menus
+  **** Display Tea objects in Region menus
   - Display Tea objects in Flavors menus
   - Scrape remaining sites:
     - Dobra
-    - Smith
+      1. 8 index pages: https://www.dobratea.com/
+      div#second-menu ul#menu-second-nav-header li (don't get accessories)
+      - Get second page if not "showing all" results: https://www.dobratea.com/category/green/page/2/
+      2. Detail pages:
+      https://www.dobratea.com/product/assam-brahmaputra/
+
+    - Smith - https://www.smithtea.com/collections/all-tea?sort_by=title-ascending
+
+    Perhaps in the future
     - Virtuous
-    - Harney?
-    - Happy Lucky's?
-    - TeaSource?
-    - Tea Spot?
+    - Harney
+    - Happy Lucky's
+    - TeaSource
+    - Tea Spot
+
   - Refactor Tea instantiaton for multiple scrapers
 
 
@@ -161,14 +170,12 @@
 
 1. Type 'exit' any time to leave program
 
+2. Pagination of long lists
 
-2. Allow user to type first word of tea
+3. Allow user to type first word of tea
 
+4. Modify project and submit rubygems.org
 
-3. Modify project and submit rubygems.org
+5. Method to get from detail page back to specific list came from (Type, Country, Flavor)
 
-
-4. Method to get from detail page back to specific list came from (Type, Country, Flavor)
-
-
-5. Write rspec tests
+6. Write rspec tests

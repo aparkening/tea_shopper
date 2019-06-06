@@ -109,7 +109,7 @@ class SongScraper
     # Convert initial price to per oz price
     # 30g size * 0.035274 conversion * price
     price_per_oz = size * 0.035274 * price
-    profile[:price_per_oz] = price_per_oz
+    profile[:price_per_oz] = price_per_oz.round(2)
 
     ## Description paragraphs
     # Gather description paragraphs

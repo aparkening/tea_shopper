@@ -53,7 +53,8 @@ class Tea
   # Return array of teas for input type
   def self.teas_by_type(type)
     teas = self.all.collect { |obj| obj if obj.type == type }.compact
-    teas.sort_by { |tea| tea.price_per_oz}
+    # teas.sort_by { |tea| tea.price_per_oz}
+    teas.sort_by { |tea| tea.name}
   end
 
   # Return array of tea regions
@@ -64,18 +65,20 @@ class Tea
   # Return array of teas for input region
   def self.teas_by_region(region)
     teas = self.all.collect{ |obj| obj if obj.region == region}.compact
-    teas.sort_by { |tea| tea.price_per_oz}
+    # teas.sort_by { |tea| tea.price_per_oz}
+    teas.sort_by { |tea| tea.name}
   end
 
-  # Return array of tea flavors
-  def self.flavors
-    self.all.collect { |tea| tea.flavors }.uniq.sort
+  # Return array of tea shops
+  def self.shops
+    self.all.collect { |tea| tea.shop_name }.uniq.sort
   end
 
-  # Return array of teas for input flavors
-  def self.teas_by_flavor(flavor)
-    teas = self.all.collect{ |obj| obj if obj.flavors == flavors}.compact
-    teas.sort_by { |tea| tea.price_per_oz}
+  # Return array of teas for input shops
+  def self.teas_by_shop(shop)
+    teas = self.all.collect{ |obj| obj if obj.shop_name == shop}.compact
+    # teas.sort_by { |tea| tea.price_per_oz}
+    teas.sort_by { |tea| tea.name}
   end
 
   # Return array sorted by price_per_oz
