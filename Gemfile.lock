@@ -38,6 +38,8 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 2.0)
+  colorize
+  nokogiri (~> 1.6)
   pry
   rake (~> 10.0)
   rspec (~> 3.0)

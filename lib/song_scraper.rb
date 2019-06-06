@@ -1,5 +1,3 @@
-require 'nokogiri'
-require 'open-uri'
 class SongScraper
 
 ###################################################################  
@@ -36,17 +34,18 @@ class SongScraper
 
 ################################################################### 
 
-  # base_url = "https://songtea.com"
-  # index_url = base_url + "/pages/tea-by-type"
-  # test_profile_url = base_url + "/collections/oolong-tea/products/dragon-phoenix-tender-heart"
+  # Path definitions
+  BASE_URL = "https://songtea.com"
+  INDEX_URL = BASE_URL + "/pages/tea-by-type"
+  # TEST_PROFILE_URL = BASE_URL + "/collections/oolong-tea/products/dragon-phoenix-tender-heart"
 
 
   # Scrape tea overview page. Return array of tea attributes.
-  def self.scrape_index(index_url)
+  def self.scrape_teas
     teas = []
 
     # Store html, get tea profile container
-    doc = Nokogiri::HTML(open(index_url))
+    doc = Nokogiri::HTML(open(INDEX_URL))
     tea_types = doc.css("div.product-section")
 
     # Get shop name from meta tag
@@ -65,13 +64,14 @@ class SongScraper
         # If tea is out of stock, store in hash
         tea.css("span.badge").text.include?("Sold Out")?stock = "sold out" : stock = ""
 
+
         # Add tea hash to array
         teas <<
       {
         :name => tea.css("p.grid-link__title").text,
         :type => tea_type,
         :shop_name => shop_name,
-        :url => tea.attr("href"),
+        :url => BASE_URL + tea.attr("href"),
         :stock => stock
       }
       end
