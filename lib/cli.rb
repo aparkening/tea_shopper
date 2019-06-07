@@ -75,18 +75,24 @@ class TeaShopper::CLI
     puts "\n"
     input = gets.strip.downcase
     
-    # Ensure valid input
+    # Input validation
+    # If input is exit, return with nil @subcategory
     if self.exit?(input) 
-      # return self.goodbye
-      return @subcategory = nil
+      @subcategory = nil
+    # If input is simply "black", set subcategory to "black/red"
     elsif input.include?("black")
-      return @subcategory = "black/red"
+      @subcategory = "black/red"
+    # If input isn't a current tea type, set to "black/red"
     elsif Tea.types.none?{|obj| obj == input}
       puts "\nHmmm, we don't recognize that type of tea, so we'll show you our favorite: Black/red teas..."
-      return @subcategory = "black/red"
+      @subcategory = "black/red"
+    else
+      @subcategory = input
     end
-  
-    return @subcategory = input
+
+  #### Debug
+  puts "End of display_category" 
+
   end
 
   # Display ordered list of teas (alphabetically sorted), set @selected_tea
@@ -128,24 +134,11 @@ class TeaShopper::CLI
         self.list_instructions
       end
     end
-  end
 
-  # Return true if input matches a tea by number or name
-  def valid_tea?(input, array)
-    self.convert_to_index(input).between?(0, array.length) || array.any?{|obj| obj.name.downcase == input}
-  end
+#### Debug
+puts "End of display_subcategory"
 
-  # Convert input into array index
-  def convert_to_index(input)
-    return input.to_i - 1
   end
-
-  # Display types for tea shop
-  # def shop_menu
-  #   # Display instructions and potential selections
-  #   # puts "Teas have many flavors. Select a flavor profile below to explore available teas."
-  #   Tea.shop_name.each { |type| puts "- #{type.capitalize}".colorize(:light_blue)}
-  # end
 
   # Take in name of tea, find tea object, display all details
   def display_tea
@@ -200,8 +193,27 @@ class TeaShopper::CLI
     # If M is selected, return to the main menu    
     self.find_teas if input == "m" || next_input == "m"
 
+#### Debug
+    puts "End of display_tea"
+
+  end
 
 
+  ##### Logic Helpers #####
+
+  # Return true if input matches a tea by number or name
+  def valid_tea?(input, array)
+    self.convert_to_index(input).between?(0, array.length) || array.any?{|obj| obj.name.downcase == input}
+  end
+
+  # Convert input into array index
+  def convert_to_index(input)
+    return input.to_i - 1
+  end
+
+  # Check if input is exit
+  def exit?(input)
+    input.downcase == "x" || input.downcase == "exit"
   end
 
 
@@ -215,11 +227,6 @@ class TeaShopper::CLI
   # Goodbye message
   def goodbye
     puts "\nThanks for stopping by. Happy tea drinking!\n\n"
-  end
-
-  # Check if input is exit
-  def exit?(input)
-    input.downcase == "x" || input.downcase == "exit"
   end
 
   # Submenu instructions
