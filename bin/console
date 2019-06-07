@@ -1,22 +1,15 @@
 #!/usr/bin/env ruby
-
 require "bundler/setup"
-require "run"
-require "irb"
-
-# You can add fixtures and/or initialization code here to make experimenting
-# with your gem easier. You can also use a different console, if you like.
+require "tea_shopper"
 
 # (If you use this, don't forget to add pry to your Gemfile!)
 # require "pry"
 # Pry.start
 
-# Shorcut console exit and restart
+# Methods for testing
 def reload!
   load 'bin/console'
 end
-
-# Testing shortcuts
 def new_test
   TeaShopper::CLI.new.make_teas
   TeaShopper::CLI.new.add_tea_attributes
@@ -25,6 +18,6 @@ def new_tea
   TeaShopper::CLI.new.display_tea("Buddha's Hand")  
 end
 
-
+require "irb"
 puts "\nWelcome to your new CLI Environment"
 IRB.start(__FILE__)
