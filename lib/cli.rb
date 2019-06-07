@@ -89,10 +89,6 @@ class TeaShopper::CLI
     else
       @subcategory = input
     end
-
-  #### Debug
-  puts "End of display_category" 
-
   end
 
   # Display ordered list of teas (alphabetically sorted), set @selected_tea
@@ -166,15 +162,51 @@ puts "End of display_subcategory"
     puts "Harvest:" + "  #{tea.date}".colorize(:light_blue)
     puts "Flavors:" + "  #{tea.flavors}\n".colorize(:light_blue)
 
-    # Show next steps
-    puts "Want more? Choose:"
-    puts "- D to view this tea's (potentially long) description".colorize(:light_blue)
-    puts "- M to start again at the main menu".colorize(:light_blue)
-    puts "- X to exit".colorize(:light_blue)
-    puts "\n"
+    # Continue displaying menu until @selected_tea has been reset
+    until @selected_tea == nil
 
-    input = gets.strip.downcase
-    next_input = nil
+      # Show next steps
+      puts "Want more? Choose:"
+      puts "- D to view this tea's (potentially long) description".colorize(:light_blue)
+      puts "- M to start again at the main menu".colorize(:light_blue)
+      puts "- X to exit".colorize(:light_blue)
+      puts "\n"
+
+      input = gets.strip.downcase
+      next_input = nil
+
+
+
+      # Display ordered list of teas
+      self.num_list(teas)
+      puts "\n"
+
+      # Get input, match to next step
+      input = gets.strip.downcase
+
+      # If input is a number, check for range and find tea by index
+      if self.convert_to_index(input).between?(0,teas.length)
+        @selected_tea = teas[self.convert_to_index(input)]
+      # Else return tea if name exists
+      elsif teas.find{|obj| obj.name.downcase == input}
+        @selected_tea = teas.find{|obj| obj.name.downcase == input}
+      # If exit, keep at nil, send goodbye
+      elsif self.exit?(input) 
+        input = "x"
+      else
+        self.separator
+        puts "We don't recognize that tea, so we'll show the list again...\n\n"
+        self.list_instructions
+      end
+    end
+
+
+
+
+
+
+    
+
 
     if input == "d"
       desc_title = tea.name + " Description:".colorize(:green)
@@ -189,12 +221,23 @@ puts "End of display_subcategory"
       puts "\n"
 
       next_input = gets.strip.downcase
+      self.separator
     end
+    
+    # Reset @selected_tea to nil
+    @selected_tea = nil
 
     # If M is selected, return to the main menu    
-    self.find_teas if input == "m" || next_input == "m"
+    if input == "m" || next_input == "m"
+      return self.find_teas
+    end
+
+    # else exit?(input) || exit?(next_input)
+    #     return input = x
+    # end
 
 #### Debug
+    puts "Selected tea is #{@selected_tea}"
     puts "End of display_tea"
 
   end
