@@ -110,7 +110,8 @@ class TeaShopper::CLI
 
     # Repeat list and selection process until valid input received
     input = ""
-    until self.valid_tea?(input, teas) || input == nil
+    until @selected_tea != nil || input == "x"
+      # self.valid_tea?(input, teas) || input == nil
 
       # Display ordered list of teas
       self.num_list(teas)
@@ -121,13 +122,13 @@ class TeaShopper::CLI
 
       # If input is a number, check for range and find tea by index
       if self.convert_to_index(input).between?(0,teas.length)
-        return @selected_tea = teas[self.convert_to_index(input)]
+        @selected_tea = teas[self.convert_to_index(input)]
       # Else return tea if name exists
       elsif teas.find{|obj| obj.name.downcase == input}
-        return @selected_tea = teas.find{|obj| obj.name.downcase == input}
+        @selected_tea = teas.find{|obj| obj.name.downcase == input}
       # If exit, keep at nil, send goodbye
       elsif self.exit?(input) 
-        input = nil
+        input = "x"
       else
         self.separator
         puts "We don't recognize that tea, so we'll show the list again...\n\n"
