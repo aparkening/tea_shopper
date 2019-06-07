@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 require_relative '../lib/tea_shopper'
 app = TeaShopper::CLI.new
-app.run
+# app.run
