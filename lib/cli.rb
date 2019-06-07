@@ -162,20 +162,18 @@ puts "End of display_subcategory"
     puts "Harvest:" + "  #{tea.date}".colorize(:light_blue)
     puts "Flavors:" + "  #{tea.flavors}\n".colorize(:light_blue)
 
-    # Continue displaying menu until @selected_tea has been reset
-    until @selected_tea == nil
+    # Show next steps
+    puts "Want more? Choose:"
+    puts "- D to view this tea's (potentially long) description".colorize(:light_blue)
+    puts "- M to start again at the main menu".colorize(:light_blue)
+    puts "- X to exit".colorize(:light_blue)
+    puts "\n"
 
-      # Show next steps
-      puts "Want more? Choose:"
-      puts "- D to view this tea's (potentially long) description".colorize(:light_blue)
-      puts "- M to start again at the main menu".colorize(:light_blue)
-      puts "- X to exit".colorize(:light_blue)
-      puts "\n"
+    input = gets.strip.downcase
+    next_input = nil
 
-      input = gets.strip.downcase
-      next_input = nil
-
-
+    until @selected_tea != nil || input == "x"
+      # self.valid_tea?(input, teas) || input == nil
 
       # Display ordered list of teas
       self.num_list(teas)
@@ -199,13 +197,6 @@ puts "End of display_subcategory"
         self.list_instructions
       end
     end
-
-
-
-
-
-
-    
 
 
     if input == "d"
