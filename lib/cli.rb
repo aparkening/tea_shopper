@@ -79,7 +79,6 @@ class TeaShopper::CLI
     puts "\n"
     input = gets.strip.downcase
     
-    # Input validation
     # If input is exit, return with nil @subcategory
     if self.exit?(input) 
       @subcategory = nil
@@ -173,48 +172,21 @@ class TeaShopper::CLI
 
     # Show next steps
     puts "Want more? Choose:"
-    # puts "- D to view this tea's (potentially long) description".colorize(:light_blue)
     puts "- M to start again at the main menu".colorize(:light_blue)
     puts "- X to exit".colorize(:light_blue)
     puts "\n"
-
     input = gets.strip.downcase
-    # next_input = nil
 
-    # if input == "d"
-    #   desc_title = tea.name + " Description:".colorize(:green)
-    #   self.section_title(desc_title)
-      # puts tea.description 
-      # puts "\n" + tea.instructions
-      # puts tea.detailed_instructions
-      # puts "\n"
-    #   puts "\nAnd now? Choose:"
-    #   puts "- M to start again at the main menu".colorize(:light_blue)
-    #   puts "- X to exit".colorize(:light_blue)
-    #   puts "\n"
+    # Reset @selected_tea to nil
+    @selected_tea = nil
 
-      # Reset @selected_tea to nil
-      @selected_tea = nil
-      # next_input = gets.strip.downcase
-
-      # self.separator
+    # self.separator
     if input == "m"
       return self.find_teas
     else
-      puts "We don't recognize that selection, so we'll exit..." if !exit?(input)
+      puts "\nWe don't recognize that selection, so we'll exit..." if !exit?(input)
       return self.goodbye
     end
-
-    # # Reset @selected_tea to nil
-    # @selected_tea = nil
-
-    # # If M is selected, return to the main menu    
-    # if next_input == "m" 
-    #   return self.find_teas
-    # else
-    #   puts "We don't recognize that selection, so we'll exit..." if !exit?(next_input)
-    #   return self.goodbye
-    # end
   end
 
 
