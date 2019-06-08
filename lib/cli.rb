@@ -57,8 +57,8 @@ class TeaShopper::CLI
 
     # Show subcategory teas, get tea selection
     # selected_tea = self.display_subcategory(subcategory, category) if @subcategory
-    # self.display_subcategory if @subcategory
-    self.display_subcategory
+    self.display_subcategory if @subcategory
+    # self.display_subcategory
 
     # Display tea profile
     self.display_tea if @selected_tea
@@ -190,18 +190,26 @@ class TeaShopper::CLI
       puts "- X to exit".colorize(:light_blue)
       puts "\n"
 
+      # Reset @selected_tea to nil
+      @selected_tea = nil
       next_input = gets.strip.downcase
+
       # self.separator
+    elsif input == "m"
+      return self.find_teas
+    else
+      puts "We don't recognize that selection, so we'll exit..." if !exit?(input)
+      return self.goodbye
     end
 
     # Reset @selected_tea to nil
     @selected_tea = nil
 
     # If M is selected, return to the main menu    
-    if input == "m" || next_input == "m" 
+    if next_input == "m" 
       return self.find_teas
     else
-      puts "We don't recognize that selection, so we'll exit..." if !exit?(input) || !exit?(next_input)
+      puts "We don't recognize that selection, so we'll exit..." if !exit?(next_input)
       return self.goodbye
     end
   end
