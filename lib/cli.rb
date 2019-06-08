@@ -23,6 +23,7 @@ class TeaShopper::CLI
     self.find_teas
   end
 
+
   ##### Build Tea Objects #####
   # Create initial Tea objects
   def make_teas
@@ -45,6 +46,7 @@ class TeaShopper::CLI
     end
   end
 
+
   ##### Find Teas #####
   # Set category, subcategory, and tea selection
   def find_teas
@@ -55,7 +57,8 @@ class TeaShopper::CLI
 
     # Show subcategory teas, get tea selection
     # selected_tea = self.display_subcategory(subcategory, category) if @subcategory
-    self.display_subcategory if @subcategory
+    # self.display_subcategory if @subcategory
+    self.display_subcategory
 
     # Display tea profile
     self.display_tea if @selected_tea
@@ -65,10 +68,11 @@ class TeaShopper::CLI
 
   # Display menu for tea type, set @subcategory
   def display_category
+    # @subcategory = nil
 
-    # Display instructions
-    puts "Choose a category below to find your next great tea:\n(Or type 'X' to exit)"
-    puts "\n"
+    # Display title and instructions
+    self.section_title("Main Menu")    
+    self.main_instructions
 
     # Display today's tea types, get input
     Tea.types.each { |obj| puts "- #{obj.capitalize}".colorize(:light_blue)}
@@ -90,6 +94,9 @@ class TeaShopper::CLI
     else
       @subcategory = input
     end
+
+    ## Debug
+    puts "Display category"
   end
 
   # Display ordered list of teas (alphabetically sorted), set @selected_tea
@@ -134,10 +141,6 @@ class TeaShopper::CLI
         self.list_instructions
       end
     end
-
-#### Debug
-puts "End of display_subcategory"
-
   end
 
   # Take in name of tea, find tea object, display all details
@@ -166,47 +169,41 @@ puts "End of display_subcategory"
     puts "Flavors:" + "  #{tea.flavors}\n".colorize(:light_blue)
 
     # Show next steps
-    # puts "Want more? Choose:"
-    # puts "- D to view this tea's (potentially long) description".colorize(:light_blue)
-    # puts "- M to start again at the main menu".colorize(:light_blue)
-    # puts "- X to exit".colorize(:light_blue)
-    # puts "\n"
+    puts "Want more? Choose:"
+    puts "- D to view this tea's (potentially long) description".colorize(:light_blue)
+    puts "- M to start again at the main menu".colorize(:light_blue)
+    puts "- X to exit".colorize(:light_blue)
+    puts "\n"
 
-    # input = gets.strip.downcase
+    input = gets.strip.downcase
     # next_input = nil
 
-    # if input == "d"
-      # desc_title = tea.name + " Description:".colorize(:green)
-      # self.section_title(desc_title)
+    if input == "d"
+      desc_title = tea.name + " Description:".colorize(:green)
+      self.section_title(desc_title)
       puts tea.description 
       puts "\n" + tea.instructions
       puts tea.detailed_instructions
       puts "\n"
-      puts "\nWant more? Choose:"
+      puts "\nAnd now? Choose:"
       puts "- M to start again at the main menu".colorize(:light_blue)
       puts "- X to exit".colorize(:light_blue)
       puts "\n"
 
       next_input = gets.strip.downcase
-      self.separator
-    # end
-    
+      # self.separator
+    end
+
     # Reset @selected_tea to nil
     @selected_tea = nil
 
     # If M is selected, return to the main menu    
-    if next_input == "m" 
+    if input == "m" || next_input == "m" 
       return self.find_teas
     else
-      puts "We don't recognize that selection, so we'll exit..." if !exit?(next_input)
+      puts "We don't recognize that selection, so we'll exit..." if !exit?(input) || !exit?(next_input)
       return self.goodbye
     end
-    # end
-
-#### Debug
-    puts "Selected tea is #{@selected_tea}"
-    puts "End of display_tea"
-
   end
 
 
@@ -237,7 +234,14 @@ puts "End of display_subcategory"
 
   # Goodbye message
   def goodbye
+    self.separator
     puts "\nThanks for stopping by. Happy tea drinking!\n\n"
+  end
+
+  # Main menu instructions
+  def main_instructions
+    puts "Choose a category below to find your next great tea:\n(Or type 'X' to exit)"
+    puts "\n"
   end
 
   # Submenu instructions
