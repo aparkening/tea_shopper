@@ -28,7 +28,7 @@ class TeaShopper::CLI
   ##### Build Tea Objects #####
   # Create initial Tea objects
   def make_teas
-    # puts "We're pulling today's tea categories from the web. This may take a few moments...\n"
+    puts "We're pulling today's tea categories from the web. This may take a few moments...\n"
     tea_array = SongScraper.scrape_teas
     Tea.create_from_collection(tea_array)
   end
