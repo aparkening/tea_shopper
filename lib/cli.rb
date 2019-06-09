@@ -102,8 +102,8 @@ class TeaShopper::CLI
     # Assign teas to display
     teas = Tea.teas_by_type(@subcategory)
     
-    # Scrape profile attributes for subset of tea objects
-    self.add_scraped_attributes(teas)
+    # Scrape profile attributes for subset of tea objects if user didn't last visit this subcategory
+    self.add_scraped_attributes(teas) if @last_subcat != @subcategory
 
     # Remember chosen subcategory
     @last_subcat = @subcategory
