@@ -2,13 +2,12 @@ class TeaShopper::CLI
 # Present data and get input from user
 
   # attr_reader :song_base_url, :song_index_url
-  attr_accessor :category, :selected_tea, :last_subcat
+  attr_accessor :category, :selected_tea
 
   # Set instance variables
   def initialize
     @category = nil
     @selected_tea = nil
-    @last_subcat = nil
     self.run
   end
 
@@ -94,16 +93,9 @@ class TeaShopper::CLI
     # Assign teas to display
     teas = Tea.teas_by_type(@category)
 
-# ### Test
-  #   binding.pry
-
-    # If users didn't already see this tea list, scrape profile attributes for this tea category
-    # self.add_scraped_attributes(teas) if @last_subcat != @category
+    # If user didn't already see this tea list, scrape profile attributes for this tea category
     self.add_scraped_attributes(teas) if Tea.no_description?(@category)
     
-    # Remember chosen category
-    # @last_subcat = @category
-
     # Display title and instructions
     title = @category.capitalize + " Tea"
     self.section_title(title)    
