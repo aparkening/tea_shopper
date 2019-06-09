@@ -2,13 +2,14 @@ class TeaShopper::CLI
 ## This class presents data and gets input from user
 
   # attr_reader :song_base_url, :song_index_url
-  attr_accessor :category, :subcategory, :selected_tea
+  attr_accessor :category, :subcategory, :selected_tea, :last_subcat
 
   # Set instance variables
   def initialize
     @category = nil
     @subcategory = nil
     @selected_tea = nil
+    @last_subcat = nil
     self.run
   end
 
@@ -93,6 +94,7 @@ class TeaShopper::CLI
     else
       @subcategory = input
     end
+
   end
 
   # Display ordered list of teas (alphabetically sorted), set @selected_tea
@@ -103,15 +105,18 @@ class TeaShopper::CLI
     # Scrape profile attributes for subset of tea objects
     self.add_scraped_attributes(teas)
 
+    # Remember chosen subcategory
+    @last_subcat = @subcategory
+
     # Display title and instructions
     title = @subcategory.capitalize + " Tea"
     self.section_title(title)    
     self.list_instructions
 
     # Repeat list and selection process until valid input received
-    input = ""
-    until @selected_tea != nil || input == "x"
-      # self.valid_tea?(input, teas) || input == nil
+    # input = ""
+    until !@selected_tea.nil?
+      # until @selected_tea != nil || input == "x"
 
       # Display ordered list of teas
       self.num_list(teas)
@@ -128,7 +133,7 @@ class TeaShopper::CLI
         @selected_tea = teas.find{|obj| obj.name.downcase == input}
       # If exit, keep at nil, send goodbye
       elsif self.exit?(input) 
-        input = "x"
+        # input = "x"
         @selected_tea = nil
         return self.goodbye
       else

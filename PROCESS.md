@@ -100,7 +100,7 @@
     Start interface instance/CLI controller: `TeaShopper::CLI.new.run`
 	  
   Interface:
-    lib/cli.rb
+    `lib/cli.rb`
     a) `puts "hello world"` to verify working correctly
 	  b) Create run method to welcome user and list core methods that will run
     c) Create menu method to give user initial menu and take input
@@ -129,8 +129,8 @@
 
 
 6. Run program and tweak
-  - Refactor to remove duplicated work and separate concerns
   - Improve error handling and responding to edge cases
+  - Refactor to remove duplicated work and separate concerns
   - Clean up tea_shopper.gemspec for production
   - Refactor for gem best practices (module names, file locations, etc.)
 
