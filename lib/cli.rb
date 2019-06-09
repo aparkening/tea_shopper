@@ -94,12 +94,15 @@ class TeaShopper::CLI
     # Assign teas to display
     teas = Tea.teas_by_type(@category)
 
-    
-    # If users didn't already see this tea list, scrape profile attributes for this tea category
-    self.add_scraped_attributes(teas) if @last_subcat != @category
+# ### Test
+  #   binding.pry
 
+    # If users didn't already see this tea list, scrape profile attributes for this tea category
+    # self.add_scraped_attributes(teas) if @last_subcat != @category
+    self.add_scraped_attributes(teas) if Tea.no_description?(@category)
+    
     # Remember chosen category
-    @last_subcat = @category
+    # @last_subcat = @category
 
     # Display title and instructions
     title = @category.capitalize + " Tea"

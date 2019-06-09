@@ -45,6 +45,11 @@ class Tea
     self.all.find{|obj| obj.name == name}
   end
 
+  # Return true if sample description doesn't exist for tea in input type
+  def self.no_description?(type)
+    self.teas_by_type(type).select{|obj| obj.description}.sample.nil?
+  end
+
   # Return array of tea types
   def self.types
     self.all.collect { |tea| tea.type }.uniq.sort
