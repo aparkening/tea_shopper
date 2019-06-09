@@ -1,4 +1,4 @@
-class Tea 
+class TeaShopper::Tea 
 
   attr_accessor :name, :type, :shop_name, :url, :stock, :size, :price, :price_per_oz, :flavors, :region, :date, :detailed_instructions, :instructions, :description
   
@@ -23,7 +23,7 @@ class Tea
   # Create tea instances from hashes inside tea_array
   def self.create_from_collection(tea_array)
     tea_array.each do |tea|
-      tea = Tea.new({
+      tea = TeaShopper::Tea.new({
         :name => tea[:name],
         :type => tea[:type],
         :region => tea[:region],

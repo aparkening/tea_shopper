@@ -11,7 +11,7 @@ class TeaShopper::CLI
     self.run
   end
 
-  ##### Controller #####
+##### Controller #####
   def run
     self.welcome
 
@@ -28,7 +28,7 @@ class TeaShopper::CLI
   def make_teas
     puts "We're pulling today's tea categories from the web. This may take a few moments...\n"
     tea_array = SongScraper.scrape_teas
-    Tea.create_from_collection(tea_array)
+    TeaShopper::Tea.create_from_collection(tea_array)
   end
 
   # Add additional attributes to Tea objects from scraped profile pages
@@ -68,7 +68,7 @@ class TeaShopper::CLI
     self.main_instructions
 
     # Display today's tea types, get input
-    Tea.types.each { |obj| puts "- #{obj.capitalize}".colorize(:light_blue)}
+    TeaShopper::Tea.types.each { |obj| puts "- #{obj.capitalize}".colorize(:light_blue)}
     puts "\n"
     input = gets.strip.downcase
     
@@ -80,7 +80,7 @@ class TeaShopper::CLI
     elsif input.include?("black")
       @category = "black/red"
     # Error check: if input isn't a current tea type, set to "black/red"
-    elsif Tea.types.none?{|obj| obj == input}
+    elsif TeaShopper::Tea.types.none?{|obj| obj == input}
       puts "\nHmmm, we don't recognize that type of tea, so we'll show you our favorite: Black/red teas..."
       @category = "black/red"
     else
@@ -91,10 +91,10 @@ class TeaShopper::CLI
   # Display ordered list of teas (alphabetically sorted), set @selected_tea
   def display_list
     # Assign teas to display
-    teas = Tea.teas_by_type(@category)
+    teas = TeaShopper::Tea.teas_by_type(@category)
 
     # If user didn't already see this tea list, scrape profile attributes for this tea category
-    self.add_scraped_attributes(teas) if Tea.no_description?(@category)
+    self.add_scraped_attributes(teas) if TeaShopper::Tea.no_description?(@category)
     
     # Display title and instructions
     title = @category.capitalize + " Tea"
