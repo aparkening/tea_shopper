@@ -10,13 +10,17 @@ require "tea_shopper"
 def reload!
   load 'bin/console'
 end
-def new_test
+# Test scrape
+def test_scrape
   TeaShopper::CLI.new.make_teas
   TeaShopper::CLI.new.add_tea_attributes
+  Tea.all
 end
-def new_tea
+# Show individual tea
+def show_tea
   TeaShopper::CLI.new.display_tea("Buddha's Hand")  
 end
+
 
 require "irb"
 puts "\nWelcome to your new CLI Environment"

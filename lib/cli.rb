@@ -1,13 +1,12 @@
 class TeaShopper::CLI
-## This class presents data and gets input from user
+# Present data and get input from user
 
   # attr_reader :song_base_url, :song_index_url
-  attr_accessor :category, :subcategory, :selected_tea, :last_subcat
+  attr_accessor :category, :selected_tea, :last_subcat
 
   # Set instance variables
   def initialize
     @category = nil
-    @subcategory = nil
     @selected_tea = nil
     @last_subcat = nil
     self.run
@@ -20,12 +19,12 @@ class TeaShopper::CLI
     # Make initial tea objects
     self.make_teas
 
-    # Start process of selecting a tea category, subcategory, and tea
+    # Start process of selecting a tea category and tea
     self.find_teas
   end
 
 
-  ##### Build Tea Objects #####
+##### Build Tea Objects #####
   # Create initial Tea objects
   def make_teas
     puts "We're pulling today's tea categories from the web. This may take a few moments...\n"
@@ -48,28 +47,22 @@ class TeaShopper::CLI
   end
 
 
-  ##### Find Teas #####
-  # Set category, subcategory, and tea selection
+##### Find Teas #####
+  # Set and show category, tea list, and tea selection
   def find_teas
 
-    # Display category selections, get subcategory
-    # subcategory = self.display_category
-    self.display_category
+    # Display categories, get selection
+    self.display_categories
 
-    # Show subcategory teas, get tea selection
-    # selected_tea = self.display_subcategory(subcategory, category) if @subcategory
-    self.display_subcategory if @subcategory
-    # self.display_subcategory
+    # Show list of teas, get tea selection
+    self.display_list if @category
 
     # Display tea profile
     self.display_tea if @selected_tea
-
-    # self.goodbye
   end
 
-  # Display menu for tea type, set @subcategory
-  def display_category
-    # @subcategory = nil
+  # Display menu for tea type, set @category
+  def display_categories
 
     # Display title and instructions
     self.section_title("Main Menu")    
@@ -80,36 +73,36 @@ class TeaShopper::CLI
     puts "\n"
     input = gets.strip.downcase
     
-    # If input is exit, return with nil @subcategory
+    # If input is exit, return with nil @category
     if self.exit?(input) 
-      @subcategory = nil
+      @category = nil
       return self.goodbye
-    # If input is simply "black", set subcategory to "black/red"
+    # Shortcut: if input is "black", set category to "black/red"
     elsif input.include?("black")
-      @subcategory = "black/red"
-    # If input isn't a current tea type, set to "black/red"
+      @category = "black/red"
+    # Error check: if input isn't a current tea type, set to "black/red"
     elsif Tea.types.none?{|obj| obj == input}
       puts "\nHmmm, we don't recognize that type of tea, so we'll show you our favorite: Black/red teas..."
-      @subcategory = "black/red"
+      @category = "black/red"
     else
-      @subcategory = input
+      @category = input
     end
-
   end
 
   # Display ordered list of teas (alphabetically sorted), set @selected_tea
-  def display_subcategory
+  def display_list
     # Assign teas to display
-    teas = Tea.teas_by_type(@subcategory)
-    
-    # Scrape profile attributes for subset of tea objects if user didn't last visit this subcategory
-    self.add_scraped_attributes(teas) if @last_subcat != @subcategory
+    teas = Tea.teas_by_type(@category)
 
-    # Remember chosen subcategory
-    @last_subcat = @subcategory
+    
+    # If users didn't already see this tea list, scrape profile attributes for this tea category
+    self.add_scraped_attributes(teas) if @last_subcat != @category
+
+    # Remember chosen category
+    @last_subcat = @category
 
     # Display title and instructions
-    title = @subcategory.capitalize + " Tea"
+    title = @category.capitalize + " Tea"
     self.section_title(title)    
     self.list_instructions
 
