@@ -16,6 +16,7 @@ end
 # def test_scrape
 #   TeaShopper::CLI.new.make_teas
 #   TeaShopper::CLI.new.add_tea_attributes
+#   TeaShopper::Tea.all
 # end
 
 
