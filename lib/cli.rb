@@ -154,8 +154,6 @@ class TeaShopper::CLI
 
     # Description, tea instructions, and detailed instructions
     puts tea.description 
-    puts "\n" + tea.instructions.colorize(:light_blue)
-    puts tea.detailed_instructions
     puts "\n"
 
     # Show next steps

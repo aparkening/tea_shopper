@@ -142,7 +142,7 @@
 8. Run Bundler release (https://bundler.io/v2.0/guides/creating_gem.html) to move into production mode and push to github.
 
 
-9. Record demonstration w/ narration in Zoom
+9. Record demonstration w/ narration
 
 
 10. Write blog post about process

@@ -19,7 +19,6 @@ end
 #   TeaShopper::Tea.all
 # end
 
-
 require "irb"
 puts "\nWelcome to your new CLI Environment"
 IRB.start(__FILE__)
