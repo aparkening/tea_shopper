@@ -1,8 +1,6 @@
 class TeaShopper::Tea 
 
   attr_accessor :name, :type, :shop_name, :url, :stock, :size, :price, :price_per_oz, :flavors, :region, :date, :detailed_instructions, :instructions, :description
-
-  # attr_accessor :name, :type, :shop_name, :url, :stock, :size, :price, :price_per_oz, :flavors, :region, :date, :detailed_instructions, :instructions, :description
   
   @@all = []
 

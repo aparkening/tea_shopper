@@ -1,8 +1,7 @@
 class TeaShopper::CLI
 # Present data and get input from user
 
-  # attr_reader :song_base_url, :song_index_url
-  attr_accessor :category, :selected_tea
+  attr_reader :category, :selected_tea
 
   # Set instance variables
   def initialize
