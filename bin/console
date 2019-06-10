@@ -10,11 +10,13 @@ require "tea_shopper"
 def reload!
   load 'bin/console'
 end
-# Test scrape
-def test_scrape
-  TeaShopper::CLI.new.make_teas
-  TeaShopper::CLI.new.add_tea_attributes
-end
+
+## No longer useful when using instance variables 
+# Test scrape 
+# def test_scrape
+#   TeaShopper::CLI.new.make_teas
+#   TeaShopper::CLI.new.add_tea_attributes
+# end
 
 
 require "irb"
