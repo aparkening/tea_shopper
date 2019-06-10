@@ -25,8 +25,10 @@ class TeaShopper::SongScraper
 #   :flavors=>"Notes of orchid, spruce, and ghee.", 
 #   :date=>"2019", 
 #   :region=>"Taiwan", 
+### Removed for now
 #   :detailed_instructions=>"This tea accommodates a range of brew styles...", 
 #   :instructions=>"Brew: 6 grams・150 ml・203° F・2 min", 
+####
 #   :description=>"2019 marks our first year offering this oolong from Taiwan’s Dragon Phoenix Gorge. The cooler temperatures and mist-shrouded gardens of this region product tea with clarity, aromatics, and texture.\nDragon Phoenix Tender Heart is produced by a small farm operated by the Zhang family..."
 # }
 
@@ -110,20 +112,18 @@ class TeaShopper::SongScraper
     price_per_oz = size * 0.035274 * price
     profile[:price_per_oz] = price_per_oz.round(2)
 
-    ## Description paragraphs
-    # Gather description paragraphs
+    ## Gather all description paragraphs and separate into flavors, date, region. (And instructions and detailed instructions in future.)
     desc_array = container.css("div.product-description p").collect { |p| p.text }
-
-    ##Separate and remove paragraphs for flavors, date, region, instructions, and detailed_instructions.
 
     # Flavors
     profile[:flavors] = desc_array.shift
      
-    # Remove second paragraph and break down into region and date
+    # Remove second paragraph and separate into region and date
     region_year = desc_array.shift.split("・")
     profile[:date] = region_year[1]
-    # Replace default "China or Taiwan" region with detailed region
-    profile[:region] = region_year.first[/(?<=from ).*/]
+
+    # Future: When listing by region, replace default "China or Taiwan region for Song teas with actual region.
+    # profile[:region] = region_year.first[/(?<=from ).*/]
  
     # Future: when separating steep instructions, activate:
     # Steep instructions
