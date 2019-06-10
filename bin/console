@@ -18,13 +18,45 @@ def test_scrape
   # TeaShopper::CLI.new.add_tea_attributes
 
   # Build tea array from inititial scrape and create Tea objects
-  tea_array = TeaShopper::SongScraper.scrape_teas
+  # tea_array = TeaShopper::SongScraper.scrape_teas
+  tea_array = [{:name=>"White Dragonwell", :type=>"green", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/green-tea/products/white-dragonwell", :stock=>""}
+  {:name=>"Huang Mudan", :type=>"green", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/green-tea/products/huang-mudan", :stock=>""},
+  {:name=>"Jiukeng Dragonwell", :type=>"green", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/green-tea/products/jiukeng-dragonwell", :stock=>""},
+  {:name=>"Fragrant Leaf", :type=>"green", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/green-tea/products/fragrant-leaf", :stock=>""},
+  {:name=>"Snow Jasmine", :type=>"green", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/green-tea/products/snow-jasmine", :stock=>""},
+  {:name=>"Arbor Yinzhen aka Silver Needle", :type=>"white", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/white-tea/products/arbor-yinzhen", :stock=>""},
+  {:name=>"Arbor Baimudan", :type=>"white", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/white-tea/products/arbor-baimudan", :stock=>""},
+  {:name=>"Purple Rose", :type=>"white", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/white-tea/products/purple-rose", :stock=>""},
+  {:name=>"Gold Peony", :type=>"white", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/white-tea/products/gold-peony", :stock=>""},
+  {:name=>"Dragon Phoenix Tender Heart", :type=>"oolong", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/oolong-tea/products/dragon-phoenix-tender-heart", :stock=>""},
+  {:name=>"Four Seasons Gold", :type=>"oolong", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/oolong-tea/products/four-seasons-gold", :stock=>""},
+  {:name=>"Lishan Winter Sprout", :type=>"oolong", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/oolong-tea/products/lishan-winter-sprout", :stock=>""},
+  {:name=>"Shan Lin Xi Winter Sprout", :type=>"oolong", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/oolong-tea/products/slx-winter-sprout", :stock=>""},
+  {:name=>"Old Grove Jasmine Fragrance", :type=>"oolong", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/oolong-tea/products/old-grove-jasmine-fragrance", :stock=>""},
+  {:name=>"Old Grove Honey Orchid", :type=>"oolong", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/oolong-tea/products/old-grove-honey-orchid", :stock=>""},
+  {:name=>"Red Water Tieguanyin", :type=>"oolong", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/oolong-tea/products/redwater-tieguanyin", :stock=>""},
+  {:name=>"Buddha's Hand", :type=>"oolong", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/oolong-tea/products/buddha-hand", :stock=>""},
+  {:name=>"Nantou Dark", :type=>"oolong", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/oolong-tea/products/nantou-dark", :stock=>""},
+  {:name=>"Meizhan Yancha", :type=>"oolong", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/oolong-tea/products/meizhan-yancha", :stock=>""},
+  {:name=>"Gold Bud Meizhan", :type=>"black/red", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/red-tea/products/gold-bud-meizhan", :stock=>""},
+  {:name=>"Four Seasons Red", :type=>"black/red", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/red-tea/products/four-seasons-red", :stock=>""},
+  {:name=>"Cypress Smoked Wild Leaf", :type=>"black/red", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/red-tea/products/cypress-smoked-wild-leaf", :stock=>""},
+  {:name=>"Early Pick Pomelo Assam", :type=>"black/red", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/red-tea/products/early-pick-pomelo-assam", :stock=>"sold out"},
+  {:name=>"Old Tree Yunnan Red", :type=>"black/red", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/red-tea/products/otyr", :stock=>""},
+  {:name=>"Eighteen", :type=>"black/red", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/red-tea/products/eighteen", :stock=>""},
+  {:name=>"Song Red", :type=>"black/red", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/red-tea/products/song-red", :stock=>"sold out"},
+  {:name=>"1994 Formosa Yancha", :type=>"aged", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/aged-tea/products/aged-formosa-yancha-94", :stock=>""},
+  {:name=>"Aged Baozhong, 1960s", :type=>"aged", :shop_name=>"Song Tea & Ceramics", :url=>"https://songtea.com/collections/aged-tea/products/aged-baozhong-1960s", :stock=>""}]
+
   TeaShopper::Tea.create_from_collection(tea_array)
 
+
+  TeaShopper::Tea.all
+
   # Add attributes from profiles pages
-  tea_array.each do |tea|
-    puts
-  end
+  # tea_array.each do |tea|
+  #   puts
+  # end
   
   binding.pry
 
@@ -33,7 +65,7 @@ def test_scrape
   # end
 
   # Display Tea.all array
-  TeaShopper::Tea.all
+  
 
 end
 
