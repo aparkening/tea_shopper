@@ -11,13 +11,21 @@ def reload!
   load 'bin/console'
 end
 
-## No longer useful when using instance variables 
 # Test scrape 
-# def test_scrape
-#   TeaShopper::CLI.new.make_teas
-#   TeaShopper::CLI.new.add_tea_attributes
-#   TeaShopper::Tea.all
-# end
+def test_scrape
+  # No longer userful with instance variables
+  # TeaShopper::CLI.new.make_teas
+  # TeaShopper::CLI.new.add_tea_attributes
+
+  # Build tea array from inititial scrape and secondary scrape
+  tea_array = TeaShopper::SongScraper.scrape_teas
+  TeaShopper::Tea.create_from_collection(tea_array)
+  TeaShopper::CLI.new.add_scraped_attributes(tea_array)
+
+  # Display Tea.all array
+  TeaShopper::Tea.all
+
+end
 
 require "irb"
 puts "\nWelcome to your new CLI Environment"
