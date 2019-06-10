@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["aparkening"]
   spec.email         = ["aaron.parkening@gmail.com"]
 
-  spec.summary       = "Tea Shopper helps you shop for tea by type, region, flavor, and price."
+  spec.summary       = "Tea Shopper helps you shop for your next great tea."
   spec.description   = ""
   spec.homepage      = "https://github.com/aparkening/tea_shopper"
   spec.license       = "MIT"
