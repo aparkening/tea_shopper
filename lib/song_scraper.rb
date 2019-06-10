@@ -2,8 +2,6 @@ class TeaShopper::SongScraper
 
 ###################################################################  
 # 1. Scrape teas from Song Teas by Type page: https://songtea.com/pages/tea-by-type
- # no longer need https://songtea.com/pages/tea-by-character
-
 # Example return values:
 # self.scrape_index(index_url)
 # Array of hashes:
@@ -58,7 +56,7 @@ class TeaShopper::SongScraper
     tea_types.each do |type|       
       type.css(".grid__item a.grid-link").each do |tea|
         
-        # Replace "red" type with "black/red"
+        # Replace "red" tea type with "black/red"
         tea_type = type.attr("id").split("/").last.split("-").first 
         tea_type = "black/red" if tea_type == "red"
         
@@ -127,11 +125,12 @@ class TeaShopper::SongScraper
     # Replace default "China or Taiwan" region with detailed region
     profile[:region] = region_year.first[/(?<=from ).*/]
  
+    # Future: when separating steep instructions, activate:
     # Steep instructions
     # Get detailed instructions first
-    profile[:detailed_instructions] = desc_array.pop
+    # profile[:detailed_instructions] = desc_array.pop
     # Get summary instructions next
-    profile[:instructions] = desc_array.pop
+    # profile[:instructions] = desc_array.pop
 
     # Join summary and detail instructions with a period.
     # profile[:instructions] = [instructions, detailed_instructions].reject(&:empty?).join('. ')
