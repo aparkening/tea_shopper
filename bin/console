@@ -17,10 +17,20 @@ def test_scrape
   # TeaShopper::CLI.new.make_teas
   # TeaShopper::CLI.new.add_tea_attributes
 
-  # Build tea array from inititial scrape and secondary scrape
+  # Build tea array from inititial scrape and create Tea objects
   tea_array = TeaShopper::SongScraper.scrape_teas
   TeaShopper::Tea.create_from_collection(tea_array)
-  TeaShopper::CLI.new.add_scraped_attributes(tea_array)
+
+  # Add attributes from profiles pages
+  tea_array.each do |tea|
+    puts
+  end
+  
+  binding.pry
+
+  #   attributes = TeaShopper::SongScraper.scrape_profile_page(tea.url)
+  #   tea.add_tea_attributes(attributes)
+  # end
 
   # Display Tea.all array
   TeaShopper::Tea.all
