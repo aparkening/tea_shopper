@@ -152,7 +152,7 @@ class TeaShopper::CLI
     puts "Harvest:" + "  #{tea.date}".colorize(:light_blue)
     puts "Flavors:" + "  #{tea.flavors}\n".colorize(:light_blue)
 
-    # Description, tea instructions, and detailed instructions
+    # Description
     puts tea.description 
     puts "\n"
 

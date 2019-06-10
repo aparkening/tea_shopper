@@ -1,6 +1,6 @@
 class TeaShopper::Tea 
 
-  attr_accessor :name, :type, :shop_name, :url, :stock, :size, :price, :price_per_oz, :flavors, :region, :date, :detailed_instructions, :instructions, :description
+  attr_accessor :name, :type, :shop_name, :url, :stock, :size, :price, :price_per_oz, :flavors, :region, :date, :description
   
   @@all = []
 
@@ -26,11 +26,11 @@ class TeaShopper::Tea
       tea = TeaShopper::Tea.new({
         :name => tea[:name],
         :type => tea[:type],
-        :region => tea[:region],
         :shop_name => tea[:shop_name],
         :url => tea[:url],
         :stock => tea[:stock]  
       })
+      # Future: reinstate :region => tea[:region],
     end
   end
 
@@ -55,10 +55,10 @@ class TeaShopper::Tea
     self.all.collect { |tea| tea.type }.uniq.sort
   end
 
-  # Return array of tea regions
-  def self.regions
-    self.all.collect { |tea| tea.region }.uniq.sort
-  end
+  # # Return array of tea regions
+  # def self.regions
+  #   self.all.collect { |tea| tea.region }.uniq.sort
+  # end
 
   # Return array of tea shops
   def self.shops
@@ -72,18 +72,18 @@ class TeaShopper::Tea
     teas.sort_by { |tea| tea.name}
   end
 
-  # Return array of teas for region
-  def self.teas_by_region(region)
-    # If default selection of china or taiwan, run twice: once for china, and once for taiwan. Then join together.
-    if region == "China or Taiwan"
-      teas = self.all.collect{ |obj| obj if obj.region.downcase.include?("china")}.compact
-      teas << self.all.collect{ |obj| obj if obj.region.downcase.include?("taiwan")}.compact
-    else
-      teas = self.all.collect{ |obj| obj if obj.region.downcase == region}.compact
-    end
-      # teas.sort_by { |tea| tea.price_per_oz}
-    teas.sort_by { |tea| tea.name}
-  end
+  # # Return array of teas for region
+  # def self.teas_by_region(region)
+  #   # If default selection of china or taiwan, run twice: once for china, and once for taiwan. Then join together.
+  #   if region == "China or Taiwan"
+  #     teas = self.all.collect{ |obj| obj if obj.region.downcase.include?("china")}.compact
+  #     teas << self.all.collect{ |obj| obj if obj.region.downcase.include?("taiwan")}.compact
+  #   else
+  #     teas = self.all.collect{ |obj| obj if obj.region.downcase == region}.compact
+  #   end
+  #     # teas.sort_by { |tea| tea.price_per_oz}
+  #   teas.sort_by { |tea| tea.name}
+  # end
 
   # Return array of teas for shops
   def self.teas_by_shop(shop)
