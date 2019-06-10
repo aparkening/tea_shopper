@@ -70,11 +70,11 @@ class TeaShopper::SongScraper
       {
         :name => tea.css("p.grid-link__title").text,
         :type => tea_type,
-        :region => "China or Taiwan",
         :shop_name => shop_name,
         :url => BASE_URL + tea.attr("href"),
         :stock => stock
       }
+      # Future: add default if sorting by region in top level: region => "China or Taiwan",
       end
     end
 
@@ -122,8 +122,9 @@ class TeaShopper::SongScraper
     region_year = desc_array.shift.split("・")
     profile[:date] = region_year[1]
 
+    # Region
+    profile[:region] = region_year.first[/(?<=from ).*/]
     # Future: When listing by region, replace default "China or Taiwan region for Song teas with actual region.
-    # profile[:region] = region_year.first[/(?<=from ).*/]
  
     # Future: when separating steep instructions, activate:
     # Steep instructions
