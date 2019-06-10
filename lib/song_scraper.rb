@@ -1,4 +1,4 @@
-class SongScraper
+class TeaShopper::SongScraper
 
 ###################################################################  
 # 1. Scrape teas from Song Teas by Type page: https://songtea.com/pages/tea-by-type

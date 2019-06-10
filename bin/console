@@ -14,11 +14,6 @@ end
 def test_scrape
   TeaShopper::CLI.new.make_teas
   TeaShopper::CLI.new.add_tea_attributes
-  Tea.all
-end
-# Show individual tea
-def show_tea
-  TeaShopper::CLI.new.display_tea("Buddha's Hand")  
 end
 
 
