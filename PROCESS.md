@@ -73,9 +73,9 @@
     Run
     Console 
   Lib:
-    User presentation/input getter file
+    User interaction file
     Environment
-    Scraper files
+    Scraper classes
     Tea class
   Rspec:
     Spec files (if exist)
@@ -95,15 +95,15 @@
       - view permissions of file
       `ls -lah`
       - add execute permissions
-      `chmod +x tea-shopper` 
+      `chmod +x tea_shopper` 
 
     Start interface instance/CLI controller: `TeaShopper::CLI.new.run`
 	  
   Interface:
     `lib/cli.rb`
     a) `puts "hello world"` to verify working correctly
-	  b) Create run method to welcome user and list core methods that will run
-    c) Create menu method to give user initial menu and take input
+	  b) Stub run method to welcome user and list core methods that will run
+    c) Stub menu method to give user initial menu and take input
 
 
 5. Stub remaining interface
@@ -112,15 +112,15 @@
 
   - Create submenus
 	- Create Tea class
-	- Scrape first site: Song
+	- Scrape first site: Song Tea & Ceramics
   - Create tea display filters for:
     - Type
-    - Region
-    - Flavors
-    - Price
+    [Removed] Region
+    [Removed] Flavors
+    [Removed] Price
   - Display Tea objects in Type menus
   - Display selected Tea object
-    - Screencast
+    - Screencast code along
 	    - Find screencast tool
 	    - Record screencast
   - Refactor to split primary and secondary scrapes
@@ -130,6 +130,7 @@
 
 6. Run program and tweak
   - Improve error handling and responding to edge cases
+    - Screencast demonstration
   - Refactor to remove duplicated work and separate concerns
   - Clean up tea_shopper.gemspec for production
   - Refactor for gem best practices (module names, file locations, etc.)
@@ -156,9 +157,11 @@
 
 ## Stretch goals:
 
-1. Type 'exit' any time to leave program
+[done!] Type 'exit' any time to leave program
 
-2. Scrape more sites:
+[done!] Allow user to type tea name or number from list
+
+3. Scrape more sites:
     - Dobra
       1. 8 index pages: https://www.dobratea.com/
       div#second-menu ul#menu-second-nav-header li (don't get accessories)
@@ -177,10 +180,6 @@
 
   - Refactor Tea instantiaton for multiple scrapers
 
-3. Pagination of long lists
-
-3. Allow user to type first word of tea
-
-4. Method to get from detail page back to specific list came from (Type, Country, Flavor)
+4. Pagination of long lists
 
 5. Write rspec tests
