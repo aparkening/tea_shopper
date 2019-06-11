@@ -2,40 +2,25 @@
 
 Tea Shopper helps find your next great tea by listing current tea offerings from the web, allowing you narrow your choices by category, and ultimately displaying specific tea details, all from a fast command line interface.
 
-## Getting Started
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See **Deployment** for notes on how to deploy the project on a live system.
-
-## Prerequisites
-
-<Not sure what we need here>
-
-What things you need to install the software and how to install them
-
-Give examples
-
-
 ## Installation
 
-<Review Bundler installation to fill this section>
-
 Add this line to your application's Gemfile:
-
 ```ruby
 gem 'tea_shopper'
 ```
 
-
 And then execute:
-
+```
     $ bundle
+```
 
 Or install it yourself as:
-
+```
     $ gem install tea_shopper
-
+```
 ## Usage
 
-Type the code below and follow the prompts to find your next tea.
+Type the code below and follow the prompts to find your next great tea.
 ```
     $ bin/tea_shopper
 ```
