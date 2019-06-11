@@ -24,6 +24,8 @@ Type the code below and follow the prompts to find your next great tea.
 ```
     $ bin/tea_shopper
 ```
+<img src="/assets/Tea_Shopper-welcome.png" alt="Tea Shopper welcome screen" />
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
