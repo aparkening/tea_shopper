@@ -23,8 +23,8 @@
 			[General description (scraped from Virtuous Tea?)]
       [Ordering and selection text in single module/method]
 
-			The teas below are ordered cheapest to most expensive. 			
-			Type a specific tea name to learn more about its flavors, steeping instructions, description, and where to buy it.
+			"The teas below are ordered alphabetically. 			
+			Type a specific tea name to learn more about its flavors, steeping instructions, description, and where to buy it."
 			
 		
 	-> "Country" chosen
@@ -39,8 +39,8 @@
 			[General description?]
       [Ordering and selection text in single module/method]
 
-			The teas below are ordered by type and then cheapest to most expensive. 			
-			Type a specific tea name to learn more about its flavors, steeping instructions, description, and where to buy it.
+			"The teas below are ordered alphabetically. 			
+			Type a specific tea name to learn more about its flavors, steeping instructions, description, and where to buy it."
 		
 				
 	-> "Flavor" selected
@@ -53,14 +53,14 @@
 			[General description?]
       [Ordering and selection text in single module/method]
 
-			The teas below are ordered by type and then cheapest to most expensive. 			
-			Type a specific tea name to learn more about its flavors, steeping instructions, description, and where to buy it.
+			"The teas below are ordered alphabetically. 			
+			Type a specific tea name to learn more about its flavors, steeping instructions, description, and where to buy it."
 		
 	-> Specific tea view
 		[Tea object]
 		- Title (w/ tea type)
 		- Tea shop (w/ url)
-		- Price per oz (w/ in stock)
+		- Price per oz (w/ stock)
 		- Flavors
 		- Steep instructions
 		- Number of infusions (if exist)
