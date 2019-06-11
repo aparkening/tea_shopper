@@ -34,7 +34,7 @@ class TeaShopper::Tea
     end
   end
 
-  # Add profile page hash attributes
+  # Add profile page hash attributes to Tea objects
   def add_tea_attributes(attributes_hash)
     attributes_hash.each {|key, value| self.send(("#{key}="), value)}
     self
@@ -55,46 +55,10 @@ class TeaShopper::Tea
     self.all.collect { |tea| tea.type }.uniq.sort
   end
 
-  # # Return array of tea regions
-  # def self.regions
-  #   self.all.collect { |tea| tea.region }.uniq.sort
-  # end
-
-  # Return array of tea shops
-  def self.shops
-    self.all.collect { |tea| tea.shop_name }.uniq.sort
-  end
-
   # Return array of teas for type
   def self.teas_by_type(type)
     teas = self.all.collect { |obj| obj if obj.type == type }.compact
-    # teas.sort_by { |tea| tea.price_per_oz}
+    # teas.sort_by { |tea| tea.price_per_oz}  # for sorting by price, rather than alphabetical
     teas.sort_by { |tea| tea.name}
   end
-
-  # # Return array of teas for region
-  # def self.teas_by_region(region)
-  #   # If default selection of china or taiwan, run twice: once for china, and once for taiwan. Then join together.
-  #   if region == "China or Taiwan"
-  #     teas = self.all.collect{ |obj| obj if obj.region.downcase.include?("china")}.compact
-  #     teas << self.all.collect{ |obj| obj if obj.region.downcase.include?("taiwan")}.compact
-  #   else
-  #     teas = self.all.collect{ |obj| obj if obj.region.downcase == region}.compact
-  #   end
-  #     # teas.sort_by { |tea| tea.price_per_oz}
-  #   teas.sort_by { |tea| tea.name}
-  # end
-
-  # Return array of teas for shops
-  def self.teas_by_shop(shop)
-    teas = self.all.collect{ |obj| obj if obj.shop_name == shop}.compact
-    # teas.sort_by { |tea| tea.price_per_oz}
-    teas.sort_by { |tea| tea.name}
-  end
-
-  # Return array sorted by price_per_oz
-  # def price_sort(array)
-  #   array.sort_by { |tea| tea.price_per_oz}
-  # end
-
 end
