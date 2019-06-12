@@ -23,24 +23,22 @@ class TeaShopper::SongScraper
     tea_types = doc.css("div.product-section")
 
     # Get shop name from meta tag
-    ## ?? Change this to use include?() ?
     shop_name = ""
-    doc.css('meta').each { |meta| 
-      shop_name = meta.attr("content") if meta.attr("property") == "og:site_name" }
+    doc.css('meta').each { |meta| shop_name = meta.attr("content") if meta.attr("property") == "og:site_name" }
 
     # Iterate through tea types, then iterate through teas to create tea hash
     tea_types.each do |type|       
       type.css(".grid__item a.grid-link").each do |tea|
         
-        # Replace "red" tea type with "black/red"
-        tea_type = type.attr("id").split("/").last.split("-").first 
-        tea_type = "black/red" if tea_type == "red"
-        
-        # If tea is out of stock, store in hash
-        tea.css("span.badge").text.include?("Sold Out")?stock = "sold out" : stock = ""
+      # Replace "red" tea type with "black/red", to remove user confusion
+      tea_type = type.attr("id").split("/").last.split("-").first 
+      tea_type = "black/red" if tea_type == "red"
+      
+      # If tea is out of stock, store in hash
+      tea.css("span.badge").text.include?("Sold Out")?stock = "sold out" : stock = ""
 
-        # Add tea hash to array
-        teas <<
+      # Add tea hash to array
+      teas <<
       {
         :name => tea.css("p.grid-link__title").text,
         :type => tea_type,
@@ -48,7 +46,6 @@ class TeaShopper::SongScraper
         :url => BASE_URL + tea.attr("href"),
         :stock => stock
       }
-      # Future: add default if sorting by region in top level: region => "China or Taiwan",
       end
     end
 
