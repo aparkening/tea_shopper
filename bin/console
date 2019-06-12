@@ -11,8 +11,9 @@ def reload!
   load 'bin/console'
 end
 
-# Test scrape 
-def test_scrape
+# Test initial Tea object build 
+def test_build
+  binding.pry
   # No longer userful with instance variables
   # TeaShopper::CLI.new.make_teas
   # TeaShopper::CLI.new.add_tea_attributes
@@ -20,24 +21,35 @@ def test_scrape
   # Build tea array from inititial scrape and create Tea objects
   tea_array = TeaShopper::SongScraper.scrape_teas
   TeaShopper::Tea.create_from_collection(tea_array)
-
-
+  
+  # View array
   TeaShopper::Tea.all
+end
 
-  # Add attributes from profiles pages
-  # tea_array.each do |tea|
-  #   puts
-  # end
+# Add all attributes to array
+def test_attributes
   
   binding.pry
 
-  #   attributes = TeaShopper::SongScraper.scrape_profile_page(tea.url)
-  #   tea.add_tea_attributes(attributes)
-  # end
+  TeaShopper::Tea.all.each do |tea|
+    attributes = TeaShopper::SongScraper.scrape_profile_page(tea.url)
+    tea.add_tea_attributes(attributes)
+  end
 
-  # Display Tea.all array
-  
+  # View array
+  TeaShopper::Tea.all
+end
 
+# Show Tea.all  
+def all_tea
+  TeaShopper::Tea.all
+end
+
+# Display specific detail page
+def test_detail
+  binding.pry
+	tea = TeaShopper::Tea.all.find{|obj| obj.name == "Snow Jasmine"}
+	TeaShopper::CLI.display_tea(tea)
 end
 
 require "irb"
