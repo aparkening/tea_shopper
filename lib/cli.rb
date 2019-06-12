@@ -114,9 +114,8 @@ class TeaShopper::CLI
       # Else return tea if name exists
       elsif TeaShopper::Tea.find_by_name(input, teas)
         @selected_tea = TeaShopper::Tea.find_by_name(input, teas)
-      # If exit, keep at nil, send goodbye
+      # If exit, set @selected_tea nil, send goodbye
       elsif self.exit?(input) 
-        # input = "x"
         @selected_tea = nil
         return self.goodbye
       else
@@ -166,7 +165,7 @@ class TeaShopper::CLI
     # Reset @selected_tea to nil
     @selected_tea = nil
 
-    # self.separator
+    # Send user to menu or exit
     if input == "m"
       return self.find_teas
     else
@@ -176,12 +175,7 @@ class TeaShopper::CLI
   end
 
 
-  ##### Logic Helpers #####
-
-  # Return true if input matches a tea by number or name
-  def valid_tea?(input, array)
-    self.convert_to_index(input).between?(0, array.length) || array.any?{|obj| obj.name.downcase == input}
-  end
+##### Logic Helpers #####
 
   # Convert input into array index
   def convert_to_index(input)
@@ -194,7 +188,7 @@ class TeaShopper::CLI
   end
 
 
-  ##### Display Helpers #####
+##### Display Helpers #####
 
   # Welcome message
   def welcome
@@ -234,5 +228,4 @@ class TeaShopper::CLI
   def num_list(array)
     array.each.with_index(1) { |obj, index| puts "#{index}. #{obj.name} ($#{obj.price_per_oz} per oz., #{obj.shop_name})".colorize(:light_blue) }
   end
-
 end
