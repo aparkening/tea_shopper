@@ -6,7 +6,7 @@ class TeaShopper::Tea
 
   # @@all Teas reader
   def self.all
-    @@all
+    return @@all
   end
 
   # Reset the @@all array
@@ -37,7 +37,7 @@ class TeaShopper::Tea
   # Add profile page hash attributes to Tea objects
   def add_tea_attributes(attributes_hash)
     attributes_hash.each {|key, value| self.send(("#{key}="), value)}
-    self
+    return self
   end
 
   # Find tea object by name
