@@ -42,7 +42,7 @@ class TeaShopper::Tea
 
   # Find tea object by name
   def self.find_by_name(name, array)
-    array.find{|obj| obj.name == name}
+    array.find{|obj| obj.name.downcase == name.downcase}
   end
 
   # Return true if sample description doesn't exist for tea in input type
