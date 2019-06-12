@@ -1,6 +1,6 @@
 # Tea Shopper
 
-Tea Shopper helps find your next great tea by listing current tea offerings from the web, allowing you narrow your choices by category, and ultimately displaying specific tea details, all from a fast command line interface.
+ Tea Shopper is a command line interface that scrapes tea data from the web and allows users to compare teas by name, price per ounce, and tea shop. When the user chooses a tea, it displays specific details, such as purchase URL, flavors, region, and description.
 
 ## Installation
 
