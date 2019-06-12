@@ -41,7 +41,7 @@ class TeaShopper::Tea
   end
 
   # Find tea object by name
-  def self.find_by_name(name, array)
+  def self.find_by_name(name)
     self.all.find{|obj| obj.name == name}
   end
 
