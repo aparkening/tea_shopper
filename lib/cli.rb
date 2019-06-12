@@ -112,9 +112,8 @@ class TeaShopper::CLI
       if self.convert_to_index(input).between?(0,teas.length-1)
         @selected_tea = teas[self.convert_to_index(input)]
       # Else return tea if name exists
-      elsif teas.find{|obj| obj.name.downcase == input}
-        # @selected_tea = teas.find{|obj| obj.name.downcase == input}
-        @selected_tea = Tea.find_by_name(input, teas)
+      elsif TeaShopper::Tea.find_by_name(input, teas)
+        @selected_tea = TeaShopper::Tea.find_by_name(input, teas)
       # If exit, keep at nil, send goodbye
       elsif self.exit?(input) 
         # input = "x"
