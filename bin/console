@@ -6,18 +6,15 @@ require "tea_shopper"
 # require "pry"
 # Pry.start
 
-# Methods for testing
+# Reload to grab newest class info
 def reload!
   load 'bin/console'
 end
 
+##### Testing Methods #####
+
 # Test initial Tea object build 
 def test_build
-  binding.pry
-  # No longer userful with instance variables
-  # TeaShopper::CLI.new.make_teas
-  # TeaShopper::CLI.new.add_tea_attributes
-
   # Build tea array from inititial scrape and create Tea objects
   tea_array = TeaShopper::SongScraper.scrape_teas
   TeaShopper::Tea.create_from_collection(tea_array)
@@ -28,9 +25,6 @@ end
 
 # Add all attributes to array
 def test_attributes
-  
-  binding.pry
-
   TeaShopper::Tea.all.each do |tea|
     attributes = TeaShopper::SongScraper.scrape_profile_page(tea.url)
     tea.add_tea_attributes(attributes)
@@ -47,9 +41,8 @@ end
 
 # Display specific detail page
 def test_detail
-  binding.pry
-	tea = TeaShopper::Tea.all.find{|obj| obj.name == "Snow Jasmine"}
-	TeaShopper::CLI.display_tea(tea)
+  tea = TeaShopper::Tea.all.find{|obj| obj.name == "Snow Jasmine"}
+  TeaShopper::CLI.new.display_tea(tea)
 end
 
 require "irb"
