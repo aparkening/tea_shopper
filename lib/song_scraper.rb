@@ -1,46 +1,20 @@
 class TeaShopper::SongScraper
 
-###################################################################  
-# 1. Scrape teas from Song Teas by Type page: https://songtea.com/pages/tea-by-type
-# Example return values:
-# self.scrape_index(index_url)
-# Array of hashes:
-# {
-#   :name=>"Aged Baozhong, 1960s", 
-#   :type=>"aged", 
-#   :shop_name=>"Song Tea & Ceramics", 
-#   :url=>"/collections/aged-tea/products/aged-baozhong-1960s", 
-#   :stock=>""
-# }
-
-
-# 2. Scrape all individual tea pages, such as https://songtea.com/collections/oolong-tea/products/dragon-phoenix-tender-heart
-
-# Example return values:
-# self.scrape_profile_page(profile_url)
-# {
-#   :size=>30.0, 
-#   :price=>19.0, 
-#   :price_per_oz=>20.10618, 
-#   :flavors=>"Notes of orchid, spruce, and ghee.", 
-#   :date=>"2019", 
-#   :region=>"Taiwan", 
-### Removed for now
-#   :detailed_instructions=>"This tea accommodates a range of brew styles...", 
-#   :instructions=>"Brew: 6 grams・150 ml・203° F・2 min", 
-####
-#   :description=>"2019 marks our first year offering this oolong from Taiwan’s Dragon Phoenix Gorge. The cooler temperatures and mist-shrouded gardens of this region product tea with clarity, aromatics, and texture.\nDragon Phoenix Tender Heart is produced by a small farm operated by the Zhang family..."
-# }
-
-################################################################### 
-
   # Path definitions
   BASE_URL = "https://songtea.com"
   INDEX_URL = BASE_URL + "/pages/tea-by-type"
   # TEST_PROFILE_URL = BASE_URL + "/collections/oolong-tea/products/dragon-phoenix-tender-heart"
 
-
-  # Scrape tea overview page. Return array of tea attributes.
+#####
+  # 1. Scrape teas from Song Teas by Type page: https://songtea.com/pages/tea-by-type
+  # Example return values:
+  # {
+  #   :name=>"Aged Baozhong, 1960s", 
+  #   :type=>"aged", 
+  #   :shop_name=>"Song Tea & Ceramics", 
+  #   :url=>"/collections/aged-tea/products/aged-baozhong-1960s", 
+  #   :stock=>""
+  # }
   def self.scrape_teas
     teas = []
 
@@ -81,10 +55,25 @@ class TeaShopper::SongScraper
     # Return array
     return teas
   end
-  # Test
-  # puts self.scrape_index(index_url).inspect
 
-  # Scrape individual tea profile page. Return hash of individual tea attributes.
+#####
+  # 2. Scrape individual tea pages, such as https://songtea.com/collections/oolong-tea/products/dragon-phoenix-tender-heart
+
+  # Example return values:
+  # self.scrape_profile_page(profile_url)
+  # {
+  #   :size=>30.0, 
+  #   :price=>19.0, 
+  #   :price_per_oz=>20.10618, 
+  #   :flavors=>"Notes of orchid, spruce, and ghee.", 
+  #   :date=>"2019", 
+  #   :region=>"Taiwan", 
+  ### Removed for now
+  #   :detailed_instructions=>"This tea accommodates a range of brew styles...", 
+  #   :instructions=>"Brew: 6 grams・150 ml・203° F・2 min", 
+  ####
+  #   :description=>"2019 marks our first year offering this oolong from Taiwan’s Dragon Phoenix Gorge. The cooler temperatures and mist-shrouded gardens of this region product tea with clarity, aromatics, and texture.\nDragon Phoenix Tender Heart is produced by a small farm operated by the Zhang family..."
+  # }
   def self.scrape_profile_page(profile_url)
     profile = {}
 
@@ -141,6 +130,4 @@ class TeaShopper::SongScraper
 
     return profile
   end
-  # Test
-  # puts self.scrape_profile_page(test_profile_url).inspect
 end
