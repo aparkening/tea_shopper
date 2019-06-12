@@ -37,7 +37,7 @@ class TeaShopper::CLI
     # Include note for potentially long scrape time
     puts "We're pulling today's teas from the web. This may take a few moments...\n"
 
-    # Only add to teas we need to display. Scrape from category array, not full Tea.all array.
+    # Only add attributes to teas we need to display. Scrape from category array, not full Tea.all array.
     tea_array.each do |tea|
       attributes = TeaShopper::SongScraper.scrape_profile_page(tea.url)
       tea.add_tea_attributes(attributes)
@@ -80,7 +80,7 @@ class TeaShopper::CLI
       @category = "black/red"
     # Error check: if input isn't a current tea type, set to "black/red"
     elsif TeaShopper::Tea.types.none?{|obj| obj == input}
-      puts "\nHmmm, we don't recognize that type of tea, so we'll show you our favorite: Black/red teas..."
+      puts "\nHmmm, we don't recognize that type of tea, so we'll show our favorite: Black/red teas..."
       @category = "black/red"
     else
       @category = input
@@ -92,7 +92,7 @@ class TeaShopper::CLI
     # Assign teas to display
     teas = TeaShopper::Tea.teas_by_type(@category)
 
-    # If user didn't already see this tea list, scrape profile attributes for this tea category
+    # If user didn't already view this tea type, scrape profile attributes
     self.add_scraped_attributes(teas) if TeaShopper::Tea.no_description?(@category)
     
     # Display title and instructions
@@ -113,7 +113,8 @@ class TeaShopper::CLI
         @selected_tea = teas[self.convert_to_index(input)]
       # Else return tea if name exists
       elsif teas.find{|obj| obj.name.downcase == input}
-        @selected_tea = teas.find{|obj| obj.name.downcase == input}
+        # @selected_tea = teas.find{|obj| obj.name.downcase == input}
+        @selected_tea = Tea.find_by_name(input, teas)
       # If exit, keep at nil, send goodbye
       elsif self.exit?(input) 
         # input = "x"
