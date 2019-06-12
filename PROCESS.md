@@ -72,9 +72,10 @@
   Bin:
     Run
     Console 
-  Lib:
-    User interaction file
+  Config:
     Environment
+  Lib:
+    CLI interaction file
     Scraper classes
     Tea class
   Rspec:
@@ -82,11 +83,11 @@
   Rakefile
   Gemfile
   
-  Initial structure via Bundler: https://bundler.io/v2.0/guides/creating_gem.html
+  Build initial structure via Bundler: https://bundler.io/v2.0/guides/creating_gem.html
     `$ bundle gem tea_shopper`
 
 
-3. Create github repository
+3. Push project to Github, since Bundler creates Github repo.
 
 
 4. Start with run file and interface file
@@ -118,7 +119,7 @@
     [Removed] Region
     [Removed] Flavors
     [Removed] Price
-  - Display Tea objects in Type menus
+  - Display Tea object categories in Type menu
   - Display selected Tea object
     - Screencast code along
 	    - Find screencast tool
@@ -130,7 +131,6 @@
 
 6. Run program and tweak
   - Improve error handling and responding to edge cases
-    - Screencast demonstration
   - Refactor to remove duplicated work and separate concerns
   - Clean up tea_shopper.gemspec for production
   - Refactor for gem best practices (module names, file locations, etc.)
@@ -149,7 +149,7 @@
 10. Write blog post about process
 
 
-11. Submit checklist
+11. Submit Flatiron checklist
 
 
 12. Upload gem after 1:1 code review

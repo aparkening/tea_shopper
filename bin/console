@@ -34,7 +34,7 @@ def test_attributes
   TeaShopper::Tea.all
 end
 
-# Show Tea.all  
+# Show full tea array 
 def all_tea
   TeaShopper::Tea.all
 end
