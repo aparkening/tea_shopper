@@ -1,14 +1,7 @@
 class TeaShopper::CLI
 # Present data and get input from user
 
-  attr_accessor :category, :selected_tea
-
-  # Set instance variables
-  # def initialize(category = nil, selected_tea = nil)
-  #   @category = category
-  #   @selected_tea = selected_tea
-  #   self.run
-  # end
+attr_accessor :category, :selected_tea
 
 ##### Controller #####
   def run
@@ -127,7 +120,7 @@ class TeaShopper::CLI
   end
 
   # Take in name of tea, find tea object, display all details
-  def display_tea(tea)
+  def display_tea
     tea = @selected_tea
 
     # Name
