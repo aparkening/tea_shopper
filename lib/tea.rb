@@ -41,8 +41,8 @@ class TeaShopper::Tea
   end
 
   # Find tea object by name
-  def self.find_by_name(name)
-    self.all.find{|obj| obj.name == name}
+  def self.find_by_name(name, array)
+    array.find{|obj| obj.name == name}
   end
 
   # Return true if sample description doesn't exist for tea in input type
