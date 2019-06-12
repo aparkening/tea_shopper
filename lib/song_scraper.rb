@@ -55,7 +55,6 @@ class TeaShopper::SongScraper
 
 #####
   # 2. Scrape individual tea pages, such as https://songtea.com/collections/oolong-tea/products/dragon-phoenix-tender-heart
-
   # Example return values:
   # self.scrape_profile_page(profile_url)
   # {
@@ -77,12 +76,8 @@ class TeaShopper::SongScraper
     # Store html document
     doc = Nokogiri::HTML(open(profile_url))
     container = doc.css("div#ProductSection div.product-single")
-  
-    # Old method:
-    # Price; strip space and remove $
-    # price = container.css("div.product-single__prices span#ProductPrice").text.strip.delete("$")
     
-    # Get first size and price from select list
+    # Get first selection from size and price select list
     size_price = container.css("form#AddToCartForm option").first.text.strip.split(" - ")
 
     # Get size, remove g, convert to float
@@ -93,12 +88,12 @@ class TeaShopper::SongScraper
     price = size_price.last[/\d+./].to_f
     profile[:price] = price
 
-    # Convert initial price to per oz price
+    # Calculate price per oz from initial price and size
     # 30g size * 0.035274 conversion * price
     price_per_oz = size * 0.035274 * price
     profile[:price_per_oz] = price_per_oz.round(2)
 
-    ## Gather all description paragraphs and separate into flavors, date, region. (And instructions and detailed instructions in future.)
+    # Gather all description paragraphs and separate into flavors, date, region. (And instructions and detailed instructions for future.)
     desc_array = container.css("div.product-description p").collect { |p| p.text }
 
     # Flavors
@@ -108,19 +103,15 @@ class TeaShopper::SongScraper
     region_year = desc_array.shift.split("・")
     profile[:date] = region_year[1]
 
-    # Region
+    # Region. Grab text after "from" until the end
     profile[:region] = region_year.first[/(?<=from ).*/]
-    # Future: When listing by region, replace default "China or Taiwan region for Song teas with actual region.
  
     # Future: when separating steep instructions, activate:
-    # Steep instructions
-    # Get detailed instructions first
-    # profile[:detailed_instructions] = desc_array.pop
-    # Get summary instructions next
-    # profile[:instructions] = desc_array.pop
-
-    # Join summary and detail instructions with a period.
-    # profile[:instructions] = [instructions, detailed_instructions].reject(&:empty?).join('. ')
+      # Steep instructions
+      # Get detailed instructions first
+      # profile[:detailed_instructions] = desc_array.pop
+      # Get summary instructions next
+      # profile[:instructions] = desc_array.pop
     
     # Full description
     profile[:description] = desc_array.join("\n\n")
