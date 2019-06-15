@@ -9,6 +9,7 @@ require "tea_shopper"
 # Reload to grab newest class info
 def reload!
   load 'bin/console'
+  # load_all "./lib"
 end
 
 ##### Testing Methods #####

@@ -15,7 +15,7 @@ class TeaShopper::SongScraper
   #   :url=>"/collections/aged-tea/products/aged-baozhong-1960s", 
   #   :stock=>""
   # }
-  def self.scrape_teas
+  def scrape_teas
     teas = []
 
     # Store html, get tea profile container
@@ -70,7 +70,7 @@ class TeaShopper::SongScraper
   ####
   #   :description=>"2019 marks our first year offering this oolong from Taiwan’s Dragon Phoenix Gorge. The cooler temperatures and mist-shrouded gardens of this region product tea with clarity, aromatics, and texture.\nDragon Phoenix Tender Heart is produced by a small farm operated by the Zhang family..."
   # }
-  def self.scrape_profile_page(profile_url)
+  def scrape_profile_page(profile_url)
     profile = {}
 
     # Store html document

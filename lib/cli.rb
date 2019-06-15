@@ -19,7 +19,7 @@ attr_accessor :category, :selected_tea
   # Create initial Tea objects
   def make_teas
     puts "We're pulling today's tea categories from the web. This may take a few moments...\n"
-    tea_array = TeaShopper::SongScraper.scrape_teas
+    tea_array = TeaShopper::SongScraper.new.scrape_teas
     TeaShopper::Tea.create_from_collection(tea_array)
   end
 
@@ -32,7 +32,7 @@ attr_accessor :category, :selected_tea
 
     # Only add attributes to teas we need to display. Scrape from category array, not full Tea.all array.
     tea_array.each do |tea|
-      attributes = TeaShopper::SongScraper.scrape_profile_page(tea.url)
+      attributes = TeaShopper::SongScraper.new.scrape_profile_page(tea.url)
       tea.add_tea_attributes(attributes)
     end
   end
