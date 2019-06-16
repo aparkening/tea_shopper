@@ -4,22 +4,6 @@ class TeaShopper::Tea
   
   @@all = []
 
-  # @@all Teas reader
-  def self.all
-    return @@all
-  end
-
-  # Reset the @@all array
-  def self.reset_all
-    self.all.clear
-  end
-
-  # Initialize multiple attributes with send
-  def initialize(attributes)
-    attributes.each {|key, value| self.send(("#{key}="), value)}
-    @@all << self
-  end
-
   # Create tea instances from hashes inside tea_array
   def self.create_from_collection(tea_array)
     tea_array.each do |tea|
@@ -38,6 +22,22 @@ class TeaShopper::Tea
   def add_tea_attributes(attributes_hash)
     attributes_hash.each {|key, value| self.send(("#{key}="), value)}
     return self
+  end
+
+  # @@all Teas reader
+  def self.all
+    return @@all
+  end
+
+  # Reset the @@all array
+  def self.reset_all
+    self.all.clear
+  end
+
+  # Initialize multiple attributes with send
+  def initialize(attributes)
+    attributes.each {|key, value| self.send(("#{key}="), value)}
+    @@all << self
   end
 
   # Find tea object by name
