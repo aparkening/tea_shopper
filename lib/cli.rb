@@ -1,7 +1,7 @@
 class TeaShopper::CLI
 # Present data and get input from user
 
-attr_accessor :category, :selected_tea
+  attr_accessor :category, :selected_tea
 
 ##### Controller #####
   def run
