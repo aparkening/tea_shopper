@@ -184,24 +184,6 @@ class TeaShopper::CLI
         puts "\nWe don't recognize that selection, so we'll exit..." if !exit?(input)
         return self.goodbye
     end
-
-    # # Show next steps
-    # puts "Want more? Choose:"
-    # puts "- M to start again at the main menu".colorize(:light_blue)
-    # puts "- X to exit".colorize(:light_blue)
-    # puts "\n"
-    # input = gets.strip.downcase
-
-    # # Reset @selected_tea to nil
-    # @selected_tea = nil
-
-    # # Send user to menu or exit
-    # if input == "m"
-    #   return self.find_teas
-    # else
-    #   puts "\nWe don't recognize that selection, so we'll exit..." if !exit?(input)
-    #   return self.goodbye
-    # end
   end
 
 
