@@ -225,7 +225,7 @@ class TeaShopper::CLI
     puts "\n"
   end
   
-  # Display O, M, X menu items
+  # Display B, M, X menu items
   def b_m_x_menu
     puts "- B to visit this tea's URL".colorize(:light_blue)
     puts "- M to start again at the main menu".colorize(:light_blue)
