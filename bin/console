@@ -17,7 +17,7 @@ end
 # Test initial Tea object build 
 def test_build
   # Build tea array from inititial scrape and create Tea objects
-  tea_array = TeaShopper::SongScraper.scrape_teas
+  tea_array = TeaShopper::SongScraper.new.scrape_teas
   TeaShopper::Tea.create_from_collection(tea_array)
   
   # View array
@@ -27,7 +27,7 @@ end
 # Add all attributes to array
 def test_attributes
   TeaShopper::Tea.all.each do |tea|
-    attributes = TeaShopper::SongScraper.scrape_profile_page(tea.url)
+    attributes = TeaShopper::SongScraper.new.scrape_profile_page(tea.url)
     tea.add_tea_attributes(attributes)
   end
 
@@ -40,11 +40,21 @@ def all_tea
   TeaShopper::Tea.all
 end
 
-# Display specific detail page
-def test_detail
-  tea = TeaShopper::Tea.all.find{|obj| obj.name == "Snow Jasmine"}
-  TeaShopper::CLI.new.display_tea(tea)
-end
+# To reactivate: 
+  # 1. Change cli.rb def display_tea to def display_tea(tea)
+  # 2. Change cli.rb self.display_tea to self.display_tea(@selected_tea)
+  # 3. Change cli.rb :category and :selected_tea to attr_accessor
+# # Display specific detail page
+# def test_detail
+#   tea = TeaShopper::Tea.all.find{|obj| obj.name == "Snow Jasmine"}
+#   TeaShopper::CLI.new.display_tea(tea)
+# end
+
+# # Break detail page
+# def no_detail
+#   tea = "Snow Jasmine"
+#   TeaShopper::CLI.new.display_tea(tea)
+# end
 
 require "irb"
 puts "\nWelcome to your new CLI Environment"
