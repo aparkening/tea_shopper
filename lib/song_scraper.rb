@@ -84,14 +84,21 @@ class TeaShopper::SongScraper
     size = size_price.first[/\d+/].to_f
     profile[:size] = size
 
-    # Get price, grab digits and decimal, convert to float
+    # Get price, grab digits and decimal, convert to float. If price is 0.0, replace with "Sold Out".
     price = size_price.last[/\d+./].to_f
+    price = "Sold Out" if price == 0.0
     profile[:price] = price
 
-    # Calculate price per oz from initial price and size
+    # Calculate price per oz from initial price and size.
     # 30g size * 0.035274 conversion * price
-    price_per_oz = size * 0.035274 * price
-    profile[:price_per_oz] = price_per_oz.round(2)
+    # If price is sold out, set to price_per_oz, as well.
+    if price.is_a?(String)
+      price_per_oz = price
+      profile[:price_per_oz] = price_per_oz
+    else 
+      price_per_oz = size * 0.035274 * price
+      profile[:price_per_oz] = price_per_oz.round(2)
+    end
 
     # Gather all description paragraphs and separate into flavors, date, region. (And instructions and detailed instructions for future.)
     desc_array = container.css("div.product-description p").collect { |p| p.text }

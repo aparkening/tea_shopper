@@ -137,7 +137,7 @@ class TeaShopper::CLI
 
     # Shop name and price
     puts "Shop:" + "     #{tea.shop_name}".colorize(:light_blue)
-    puts "Price:" + "    $#{tea.price} for #{tea.size} grams (#{tea.price_per_oz} per oz.)".colorize(:light_blue)
+    puts "Price:" + "    $#{tea.price} for #{tea.size} grams (#{tea.price_per_oz} per oz.)".colorize(:light_blue) if tea.price != "Sold Out"
 
     # Region, harvest, flavors
     puts "Region:" + "   #{tea.region}".colorize(:light_blue)
@@ -217,8 +217,14 @@ class TeaShopper::CLI
     puts title.colorize(:green) + "\n\n"
   end
 
-  # Display numbered list from array input
+  # Display numbered list from array input. Replace price per oz with sold out as needed.
   def num_list(array)
-    array.each.with_index(1) { |obj, index| puts "#{index}. #{obj.name} ($#{obj.price_per_oz} per oz., #{obj.shop_name})".colorize(:light_blue) }
+    printer = ""
+    array.each.with_index(1) do |obj, index| 
+      printer = "#{index}. #{obj.name} (".colorize(:light_blue)
+      obj.price_per_oz == "Sold Out"? printer << "Sold Out".colorize(:red) : printer << "#{obj.price_per_oz} per oz.".colorize(:light_blue)
+      printer << ", #{obj.shop_name})".colorize(:light_blue)
+      puts printer
+    end
   end
 end
