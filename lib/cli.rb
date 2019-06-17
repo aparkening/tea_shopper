@@ -144,27 +144,64 @@ class TeaShopper::CLI
     puts "Harvest:" + "  #{tea.date}".colorize(:light_blue)
     puts "Flavors:" + "  #{tea.flavors}\n".colorize(:light_blue)
 
-    # Description
-    puts tea.description 
-    puts "\n"
+    # # Description
+    # puts tea.description 
+    # puts "\n"
+    description_displayed = nil
 
-    # Show next steps
-    puts "Want more? Choose:"
-    puts "- M to start again at the main menu".colorize(:light_blue)
-    puts "- X to exit".colorize(:light_blue)
-    puts "\n"
-    input = gets.strip.downcase
-
-    # Reset @selected_tea to nil
-    @selected_tea = nil
-
-    # Send user to menu or exit
-    if input == "m"
-      return self.find_teas
-    else
-      puts "\nWe don't recognize that selection, so we'll exit..." if !exit?(input)
-      return self.goodbye
+    # Display next steps, get input
+    until @selected_tea.nil?
+      puts "What now? Choose:"
+      puts "- D to view this tea's (potentially long) description".colorize(:light_blue) if description_displayed.nil?
+      self.b_m_x_menu
+      
+      input = gets.strip.downcase
+    
+      # If D, display description
+      if input == "d" && description_displayed.nil?
+        desc_title = tea.name + " Description:".colorize(:green)
+        self.section_title(desc_title)
+        puts tea.description 
+        # puts "\n" + tea.instructions.colorize(:light_blue)
+        # puts tea.detailed_instructions
+        puts "\n"
+        description_displayed = "yes"
+      else 
+        # Reset @selected_tea to nil
+        @selected_tea = nil
+      end
     end
+
+    # Open in browser, go to menu, or say goodbye
+    case input
+      when "b"
+        self.open_browser(tea.url)
+        puts "\nThe tea should now be up in your browser. We'll go back to the main menu to select more teas..."
+        return self.find_teas
+      when "m"
+        return self.find_teas
+      else
+        puts "\nWe don't recognize that selection, so we'll exit..." if !exit?(input)
+        return self.goodbye
+    end
+
+    # # Show next steps
+    # puts "Want more? Choose:"
+    # puts "- M to start again at the main menu".colorize(:light_blue)
+    # puts "- X to exit".colorize(:light_blue)
+    # puts "\n"
+    # input = gets.strip.downcase
+
+    # # Reset @selected_tea to nil
+    # @selected_tea = nil
+
+    # # Send user to menu or exit
+    # if input == "m"
+    #   return self.find_teas
+    # else
+    #   puts "\nWe don't recognize that selection, so we'll exit..." if !exit?(input)
+    #   return self.goodbye
+    # end
   end
 
 
@@ -206,6 +243,14 @@ class TeaShopper::CLI
     puts "\n"
   end
   
+  # Display O, M, X menu items
+  def b_m_x_menu
+    puts "- B to visit this tea's URL".colorize(:light_blue)
+    puts "- M to start again at the main menu".colorize(:light_blue)
+    puts "- X to exit".colorize(:light_blue)
+    puts "\n"
+  end
+
   # Section separator
   def separator
     puts "\n----------\n\n"
@@ -222,14 +267,14 @@ class TeaShopper::CLI
     printer = ""
     array.each.with_index(1) do |obj, index| 
       printer = "#{index}. #{obj.name} (".colorize(:light_blue)
-      obj.price_per_oz == "Sold Out"? printer << "Sold Out".colorize(:red) : printer << "#{obj.price_per_oz} per oz.".colorize(:light_blue)
+      obj.price_per_oz == "Sold Out"? printer << "Sold Out".colorize(:red) : printer << "$#{obj.price_per_oz} per oz.".colorize(:light_blue)
       printer << ", #{obj.shop_name})".colorize(:light_blue)
       puts printer
     end
   end
 
   # Open URL in browser
-  def open_browser
-		system("open '#{@selected_tea.url}'")
+  def open_browser(url)
+		system("open '#{url}'")
 	end
 end
