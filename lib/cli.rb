@@ -227,4 +227,9 @@ class TeaShopper::CLI
       puts printer
     end
   end
+
+  # Open URL in browser
+  def open_browser
+		system("open '#{@selected_tea.url}'")
+	end
 end
