@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tea_shopper (0.1.0)
+    tea_shopper (0.2.0)
 
 GEM
   remote: https://rubygems.org/
