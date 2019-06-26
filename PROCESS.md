@@ -1,115 +1,115 @@
 # My Gem Development Process
 
-1. Plan gem, imagine interface
+## 1. Plan gem, imagine interface
 
-- Welcome to Tea Shopper! There are many teas to choose from. Choose a way to explore from the list below:
-		- Type
-		- Country of origin
-		- Flavor
-		
--> "Type" chosen    
-		Type
-		We have eight main tea categories to choose from. Select from the list below to explore available teas.
-		- Green
-		- White
-		- Yellow
-		- Oolong
-		- Black
-		- Pu-er
-		- Rooibos
-		- Herbal 
+### First Menu
+Welcome to Tea Shopper! There are many teas to choose from. Choose a way to explore from the list below:
+* Type
+* Country of origin
+* Flavor
 
-    -> "Green" chosen
-			[General description (scraped from Virtuous Tea?)]
-      [Ordering and selection text in single module/method]
 
-			"The teas below are ordered alphabetically. 			
-			Type a specific tea name to learn more about its flavors, steeping instructions, description, and where to buy it."
+#### Select "Type"    
+Type
+We have eight main tea categories to choose from. Select from the list below to explore available teas.
+* Green
+* White
+* Yellow
+* Oolong
+* Black
+* Pu-er
+* Rooibos
+* Herbal 
+
+##### Then select "Green"
+	[General description (scraped from Virtuous Tea?)]
+	[Ordering and selection text in single module/method]
+
+	"The teas below are ordered alphabetically. 			
+	Type a specific tea name to learn more about its flavors, steeping instructions, description, and where to buy it."
 			
 		
-	-> "Country" chosen
-  	Country of origin
-		Select from the tea-producing countries below to explore available teas.
-		- China
-		- Japan
-		- Taiwan
-		- [other scraped countries]
+#### Select "Country"
+Country of origin
+Select from the tea-producing countries below to explore available teas.
+* China
+* Japan
+* Taiwan
+* [other scraped countries]
 		
-			-> "China" chosen
-			[General description?]
-      [Ordering and selection text in single module/method]
+##### Then select "China"
+	[General description?]
+	[Ordering and selection text in single module/method]
 
-			"The teas below are ordered alphabetically. 			
-			Type a specific tea name to learn more about its flavors, steeping instructions, description, and where to buy it."
+	"The teas below are ordered alphabetically. 			
+	Type a specific tea name to learn more about its flavors, steeping instructions, description, and where to buy it."
 		
 				
-	-> "Flavor" selected
-    Select from the flavor profiles below to explore available teas.
-		- Fruity
-		- Vegetal
-		- [other screaped categories]
+#### Select "Flavor"
+Select from the flavor profiles below to explore available teas.
+* Fruity
+* Vegetal
+* [other screaped categories]
 		
-			-> "Fruity" selected
-			[General description?]
-      [Ordering and selection text in single module/method]
+##### Then select "Fruity"
+	[General description?]
+	[Ordering and selection text in single module/method]
 
-			"The teas below are ordered alphabetically. 			
-			Type a specific tea name to learn more about its flavors, steeping instructions, description, and where to buy it."
+	"The teas below are ordered alphabetically. 			
+	Type a specific tea name to learn more about its flavors, steeping instructions, description, and where to buy it."
 		
-	-> Specific tea view
-		[Tea object]
-		- Title (w/ tea type)
-		- Tea shop (w/ url)
-		- Price per oz (w/ stock)
-		- Flavors
-		- Steep instructions
-		- Number of infusions (if exist)
-		- Full description
-		- Ingredients (if exist)
+
+#### Specific tea view (of Tea object)
+- Title (w/ tea type)
+- Tea shop (w/ url)
+- Price per oz (w/ stock)
+- Flavors
+- Steep instructions
+- Number of infusions (if exist)
+- Full description
+- Ingredients (if exist)
 
 
-2. Outline project structure
-  Bin:
-    Run
-    Console 
-  Config:
-    Environment
-  Lib:
-    CLI interaction file
-    Scraper classes
-    Tea class
-  Rspec:
-    Spec files (if exist)
-  Rakefile
-  Gemfile
-  
-  Build initial structure via Bundler: https://bundler.io/v2.0/guides/creating_gem.html
-    `$ bundle gem tea_shopper`
+## 2. Outline project structure
+```
+- Bin:
+└── Run
+└── Console 
+- Config:
+└── Environment
+- Lib:
+└── CLI interaction file
+└── Scraper classes
+└── Tea class
+- Rspec:
+└── Spec files (if exist)
+- Rakefile
+- Gemfile
+```
+
+Build initial structure via Bundler: https://bundler.io/v2.0/guides/creating_gem.html
+`$ bundle gem tea_shopper`
 
 
-3. Push project to Github, since Bundler creates Github repo.
+## 3. Push project to Github, since Bundler creates Github repo.
 
 
-4. Start with run file and interface file
-  Run: 
-    bin/tea_shopper
-      - view permissions of file
-      `ls -lah`
-      - add execute permissions
-      `chmod +x tea_shopper` 
+## 4. Start with run file and interface file
+Run: `bin/tea_shopper`
+View permissions of file: `ls -lah`
+Add execute permissions: `chmod +x tea_shopper` 
 
-    Start interface instance/CLI controller: `TeaShopper::CLI.new.run`
+Start interface instance/CLI controller: `TeaShopper::CLI.new.run`
 	  
-  Interface:
-    `lib/cli.rb`
-    a) `puts "hello world"` to verify working correctly
-	  b) Stub run method to welcome user and list core methods that will run
-    c) Stub menu method to give user initial menu and take input
+Interface:`lib/cli.rb`
+ 1. `puts "hello world"` to verify working correctly
+ 2. Stub run method to welcome user and list core methods that will run
+ 3. Stub menu method to give user initial menu and take input
 
 
-5. Stub remaining interface
-  a) Hardcode to show display details
-  b) Replace each section with dynamic code.
+## 5. Stub remaining interface
+1. Hardcode to show display details
+2. Replace each section with dynamic code.
 
   - Create submenus
 	- Create Tea class
@@ -129,56 +129,57 @@
   [Removed] Display Tea objects in Flavors menus
 
 
-6. Run program and tweak
+## 6. Run program and tweak
   - Improve error handling and responding to edge cases
   - Refactor to remove duplicated work and separate concerns
   - Clean up tea_shopper.gemspec for production
   - Refactor for gem best practices (module names, file locations, etc.)
 
 
-7. Update Readme to include installation, about, etc., following pattern in https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
-  - Update Code_of_Conduct.md
+## 7. Update Readme and Code of Conduct
+Model Readme on pattern in https://gist.github.com/PurpleBooth/109311bb0361f32d87a2.
 
 
-8. Run Bundler release (https://bundler.io/v2.0/guides/creating_gem.html) to move into production mode and push to github.
+## 8. Run Bundler release 
+Move files into production mode and push to github (https://bundler.io/v2.0/guides/creating_gem.html).
 
 
-9. Record demonstration w/ narration
+## 9. Record demonstration w/ narration
 
 
-10. Write blog post about process
+## 10. Write blog post about process
 
 
-11. Submit Flatiron checklist
+## 11. Submit Flatiron checklist
 
 
-12. Upload gem after 1:1 code review
+## 12. Upload gem after 1:1 code review
+https://rubygems.org/gems/tea_shopper
 
 
 ## Stretch goals:
 
-[done!] Type 'exit' any time to leave program
+1. [done!] Type 'exit' any time to leave program
 
-[done!] Allow user to type tea name or number from list
+2. [done!] Allow user to type tea name or number from list
 
 3. Scrape more sites:
-    - Dobra
-      1. 8 index pages: https://www.dobratea.com/
-      div#second-menu ul#menu-second-nav-header li (don't get accessories)
-      - Get second page if not "showing all" results: https://www.dobratea.com/category/green/page/2/
-      2. Detail pages:
-      https://www.dobratea.com/product/assam-brahmaputra/
+   - Refactor Tea instantiaton for multiple scrapers
+   
+   #### Dobra
+   1. 8 index pages: https://www.dobratea.com/
+   - div#second-menu ul#menu-second-nav-header li (don't get accessories)
+   - Get second page if not "showing all" results: https://www.dobratea.com/category/green/page/2/
+   2. Detail pages: https://www.dobratea.com/product/assam-brahmaputra/
 
-    - Smith - https://www.smithtea.com/collections/all-tea?sort_by=title-ascending
+   #### Smith - https://www.smithtea.com/collections/all-tea?sort_by=title-ascending
 
-    Perhaps in the future
-    - Virtuous
-    - Harney
-    - Happy Lucky's
-    - TeaSource
-    - Tea Spot
-
-  - Refactor Tea instantiaton for multiple scrapers
+   #### Perhaps in the future
+   - Virtuous
+   - Harney
+   - Happy Lucky's
+   - TeaSource
+   - Tea Spot
 
 4. Pagination of long lists
 
