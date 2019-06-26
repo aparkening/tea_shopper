@@ -2,8 +2,6 @@ PATH
   remote: .
   specs:
     tea_shopper (1.0.2)
-      colorize
-      nokogiri (~> 1.6)
 
 GEM
   remote: https://rubygems.org/
