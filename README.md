@@ -6,7 +6,7 @@
 
 Add this line to your application's Gemfile:
 ```ruby
-gem 'tea_shopper'
+    gem 'tea_shopper'
 ```
 
 And then execute:
