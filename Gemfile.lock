@@ -2,6 +2,8 @@ PATH
   remote: .
   specs:
     tea_shopper (1.0.2)
+      colorize
+      nokogiri (~> 1.6)
 
 GEM
   remote: https://rubygems.org/
@@ -36,8 +38,6 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 2.0)
-  colorize
-  nokogiri (~> 1.6)
   pry
   rake (~> 10.0)
   rspec (~> 3.0)
