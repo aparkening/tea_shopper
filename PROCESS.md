@@ -145,6 +145,7 @@ Move files into production mode and push to github (https://bundler.io/v2.0/guid
 
 
 ## 9. Record demonstration w/ narration
+https://www.loom.com/share/5d3cc369d7c243d4af5e665206b39a75
 
 
 ## 10. Write blog post about process
