@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "../config/environment"
+require "./config/environment"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
