@@ -5,7 +5,7 @@ gemspec
 
 # Default gems
 gem "colorize"
-gem "nokogiri", "~> 1.6"
+gem "nokogiri", "~> 1.10"
 
 # Development gems
 group :development do
